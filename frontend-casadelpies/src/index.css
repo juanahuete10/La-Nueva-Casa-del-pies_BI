@@ -1,0 +1,22 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+
+background-image: url('./Imagenes/Captura_de_pantalla_2023-11-08_091550-removebg-preview\ \(1\).png');
+background-size:cover;
+background-position: center;
+background-repeat: no-repeat;
+background-position-y: 10px;
+color: rgb(6, 171, 217);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+

@@ -12,7 +12,9 @@ import html2canvas from 'html2canvas';
 function Estadisticas({ rol }) { 
   const [productos, setProductos] = useState([]);
   const [myChart, setMyChart] = useState(null);
+  const [chart2, setChart2] = useState(null);
   const [precio,setPrecio] = useState ([]);
+  const [productosPorCategoria, setProductosPorCategoria] = useState([]);
 
   useEffect(() => {
     fetch('http://localhost:5000/crud/readProductos')  
@@ -20,6 +22,13 @@ function Estadisticas({ rol }) {
       .then((data) => setProductos(data)) 
       .catch((error) => console.error('Error al obtener los productos:', error)); 
   }, []); 
+
+  useEffect(() => {
+    fetch('http://localhost:5000/crud/productosPorCategoria')
+    .then((response) => response.json())
+    .then((data) => setProductosPorCategoria(data))
+    .catch((error) => console.error('Error al obtener los productos por categoría:', error));
+  }, []);
 
   useEffect(() => {
     if (productos.length > 0) { 
@@ -39,7 +48,14 @@ function Estadisticas({ rol }) {
           datasets: [{
             label: 'Precio',
             data: precio,
-            backgroundColor: 'rgba(54, 162, 235, 0.5)',  
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.5)',
+              'rgba(54, 162, 235, 0.5)',
+              'rgba(255, 206, 86, 0.5)',
+              'rgba(75, 192, 192, 0.5)',
+              'rgba(153, 102, 255, 0.5)',
+              'rgba(255, 159, 64, 0.5)'
+            ],  
             borderColor: 'rgba(54, 162, 235, 1)',  
             borderWidth: 1 
           }]
@@ -54,7 +70,62 @@ function Estadisticas({ rol }) {
       });
       setMyChart(almacen);
     }
-  }, [productos]);  
+  }, [productos]);
+
+  useEffect(() => {
+    if (productosPorCategoria.length > 0) {
+      const ctx = document.getElementById('myCategories');
+
+      if (chart2 !== null) {
+        chart2.destroy(); 
+      }
+
+      const labels = productosPorCategoria.map((categoria) => categoria.nombre_C);
+      const data = productosPorCategoria.map((categoria) => categoria.CantidadProductos);
+
+      const categorias = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Cantidad de productos por categoría',
+            data: data,
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.5)',
+              'rgba(54, 162, 235, 0.5)',
+              'rgba(255, 206, 86, 0.5)',
+              'rgba(75, 192, 192, 0.5)',
+              'rgba(153, 102, 255, 0.5)',
+              'rgba(255, 159, 64, 0.5)'
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'top',
+            },
+            title: {
+              display: true,
+              text: 'Cantidad de productos por categoría'
+            }
+          }
+        }
+      });
+      setChart2(categorias);
+    }
+  }, [productosPorCategoria]);
+
 
   const generarReporteAlmacen = () => {
     fetch('http://localhost:5000/crud/readProductos') 
@@ -142,6 +213,21 @@ const generarReporteAlmacenImg = async () => {
 
             </Card>
           </Col>
+
+          <Col sm="6" md="6" lg="4">
+          <Card>
+            <Card.Body>
+              <Card.Title>Productos por Categoría</Card.Title>
+              <canvas id="myCategories" height="120"></canvas>
+            </Card.Body>
+
+          <Card.Body>
+            <Button onClick={generarReporteAlmacen}>
+            Generar PDF
+          </Button>
+        </Card.Body>
+      </Card>
+    </Col>
 
         </Row>
       </Container>

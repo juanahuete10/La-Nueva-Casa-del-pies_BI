@@ -33,6 +33,29 @@ module.exports = (db) => {
 
 // Ruta para leer registros
 
+// Ruta para obtener la cantidad de productos por categoría
+router.get('/productosPorCategoria', (req, res) => {
+  const sql = `
+  SELECT
+      categorias.nombre_C,
+      COUNT(Productos.id_Producto) AS CantidadProductos
+      FROM
+    Productos
+    INNER JOIN
+    categorias ON productos.id_Categoria = categorias.id_Categoria
+      GROUP BY
+    categorias.id_Categoria;
+  `;
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.error('Error al obtener la cantidad de productos por categoría:', err);
+      res.status(500).json({ error: 'Error al obtener la cantidad de productos por categoría' });
+    } else {
+      res.status(200).json(result);
+    }
+  });
+});
+
 // Ruta para leer la tabla Categoria de la Base de Datos, empleando sentencias SQL
 
 router.get('/readcategorias', (req, res) => {

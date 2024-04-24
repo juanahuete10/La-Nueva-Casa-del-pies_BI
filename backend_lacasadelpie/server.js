@@ -12,8 +12,8 @@ app.use(express.json({limit:'59mb'}));
 // Configuración de la conexión a la base de datos
 const db = mysql.createConnection({
   host: 'localhost',
-  user: 'root',
-  password: 'Mysql2023',
+  user: 'Administrador',
+  password: 'Admin123',
   database: 'casadelpies1'
 });
 

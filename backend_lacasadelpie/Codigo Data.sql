@@ -2,7 +2,7 @@ CREATE DATABASE IF NOT EXISTS fisico;
 
 USE fisico;
 
-CREATE TABLE d_vendedor (
+CREATE TABLE IF NOT EXISTS d_vendedor (
   id_Vendedor INT PRIMARY KEY,
   id_Usuario INT,
   nombre VARCHAR(30),
@@ -10,7 +10,7 @@ CREATE TABLE d_vendedor (
   direccion VARCHAR(60)
 );
 
-CREATE TABLE h_venta (
+CREATE TABLE IF NOT EXISTS h_venta (
   id_Fecha INT PRIMARY KEY,
   id_Vendedor INT,
   id_Producto INT,
@@ -18,12 +18,12 @@ CREATE TABLE h_venta (
   id_Cliente INT
 );
 
-CREATE TABLE d_modopagos (
+CREATE TABLE IF NOT EXISTS d_modopagos (
   id_ModoPago INT PRIMARY KEY,
   Nombre_ModoPago VARCHAR(20)
 );
 
-CREATE TABLE d_clientes (
+CREATE TABLE IF NOT EXISTS d_clientes (
   id_Cliente INT PRIMARY KEY,
   id_Usuario INT,
   nombre VARCHAR(30),
@@ -32,7 +32,7 @@ CREATE TABLE d_clientes (
   historialdecompras TEXT
 );
 
-CREATE TABLE d_tiempo (
+CREATE TABLE IF NOT EXISTS d_tiempo (
   id_Fecha INT PRIMARY KEY,
   Anyo INT,
   mes INT,

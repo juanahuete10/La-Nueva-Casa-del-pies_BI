@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Button, Card, Row, Col, Form, Modal, FloatingLabel } from 'react-bootstrap';
+import { Table, Button, Card, Row, Col, Container, Form, Modal, FloatingLabel } from 'react-bootstrap';
 import Header from '../components/Header';
 import { FaTrashCan, FaPencil } from 'react-icons/fa6';
 
@@ -71,6 +71,7 @@ function ListaMarcas({rol}) {
     <div>
       <Header rol={ rol}/>
 
+      <Container>
       <Card className="espaciado">
         <Card.Body>
           <Card.Title className="mb-3">Listado de Marcas</Card.Title>
@@ -88,7 +89,7 @@ function ListaMarcas({rol}) {
                   <td>{marcas.nombre_Marca}</td>
                   <td>
                   <Button variant="primary" onClick={() => openModal(marcas)}><FaPencil/></Button>
-                 <Button variant="danger" onClick={() => handleDelete(marcas.id_Marca)}><FaTrashCan/></Button>
+                  <Button variant="danger" onClick={() => handleDelete(marcas.id_Marca)}><FaTrashCan/></Button>
                   </td>
                 </tr>
               ))}
@@ -132,6 +133,7 @@ function ListaMarcas({rol}) {
           </Button>
         </Modal.Footer>
       </Modal>
+      </Container>
     </div>
   );
 }

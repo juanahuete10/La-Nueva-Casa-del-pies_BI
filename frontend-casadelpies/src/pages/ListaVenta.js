@@ -150,7 +150,9 @@ function ListaVenta({rol}) {
     <div>
       <Header rol={ rol}/>
 
-      <Card className="m-3">
+      <Container>
+
+      <Card className="espaciado">
         <Card.Body>
           <Card.Title className="mb-3">Listado de Ventas</Card.Title>
 
@@ -202,6 +204,7 @@ function ListaVenta({rol}) {
           </Table>
         </Card.Body>
       </Card>
+      </Container>
 
     </div>
   );

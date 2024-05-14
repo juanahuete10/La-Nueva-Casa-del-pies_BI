@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Button, Card, Row, Col, Form, Modal, FloatingLabel  } from 'react-bootstrap';
+import { Table, Button, Card, Row, Col, Container, Form, Modal, FloatingLabel  } from 'react-bootstrap';
 import Header from '../components/Header';
 import { FaRegPenToSquare,FaTrashCanArrowUp } from "react-icons/fa6";
 
@@ -123,7 +123,9 @@ function ListaDescuento({rol}) {
     <div>
       <Header rol={ rol}/>
 
-      <Card className="m-3">
+      <Container>
+
+      <Card className="espaciado">
         <Card.Body>
           <Card.Title className="mb-3">Listado de Categorias</Card.Title>
 
@@ -147,7 +149,7 @@ function ListaDescuento({rol}) {
                 <th>ID</th>
                 <th>Nombre Categoria</th>
                 <th>Descripcion</th>
-               
+                
               </tr>
             </thead>
             <tbody>   
@@ -217,6 +219,7 @@ function ListaDescuento({rol}) {
           </Button>
         </Modal.Footer>
       </Modal>
+      </Container>
 
     </div>
   );

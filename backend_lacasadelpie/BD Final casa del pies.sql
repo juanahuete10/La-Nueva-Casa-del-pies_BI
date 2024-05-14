@@ -1,4 +1,5 @@
 CREATE DATABASE casadelpies1;
+
 USE casadelpies1;
 
 CREATE TABLE Categorias (
@@ -79,8 +80,8 @@ CREATE TABLE Ventas (
   fecha Date,
   Estado Varchar(50),
   TipoVentas Varchar(20),
-   Direccion_Envio Varchar(50),
-  Total_Venta Int,
+  Direccion_Envio Varchar(50),
+  total_Venta Int
   
 );
 

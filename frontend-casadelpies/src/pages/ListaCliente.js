@@ -117,7 +117,8 @@ function ListaCliente({ rol }) {
     <div>
       <Header rol={rol} />
 
-      <Card className="m-3">
+      <Container>
+      <Card className="espaciado">
         <Card.Body>
           <Card.Title className="mb-3">Listado de Cliente</Card.Title>
 
@@ -253,6 +254,7 @@ function ListaCliente({ rol }) {
           </Button>
         </Modal.Footer>
       </Modal>
+      </Container>
     </div>
   );
 }

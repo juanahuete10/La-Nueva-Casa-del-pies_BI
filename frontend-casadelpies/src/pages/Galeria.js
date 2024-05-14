@@ -65,7 +65,7 @@ function Galeria({rol}) {
         </Col>
       </Row>
 
-      <Row className="g-3">
+      <Row className="espaciado">
         {productos.map((producto) => (
           <Col sm="12" md="4" lg="3">
             <Card>

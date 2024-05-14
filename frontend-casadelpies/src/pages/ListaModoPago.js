@@ -93,7 +93,9 @@ function ListaModoPago({rol}) {
     <div>
       <Header rol={ rol}/>
 
-      <Card className="m-3">
+      <Container>
+
+      <Card className="espaciado">
         <Card.Body>
           <Card.Title className="mb-3">Lista de Modo Pagos</Card.Title>
           <Table striped bordered hover>
@@ -159,6 +161,7 @@ function ListaModoPago({rol}) {
           </Button>
         </Modal.Footer>
       </Modal>
+      </Container>
 
     </div>
   );

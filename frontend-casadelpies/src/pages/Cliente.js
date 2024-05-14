@@ -79,7 +79,7 @@ function Cliente({userRol}) {
 
   return(
     <div>
-      <Header rol={userRol} />
+      <Header rol={ rol} />
       
       <Container>
         <Card className="espaciado">

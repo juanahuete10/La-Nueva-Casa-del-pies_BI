@@ -117,7 +117,8 @@ function ListaVendedor({ rol }) {
     <div>
       <Header rol={rol} />
 
-      <Card className="m-3">
+      <Container>
+      <Card className="espaciado">
         <Card.Body>
           <Card.Title className="mb-3">Listado de Vendedor</Card.Title>
 
@@ -248,6 +249,7 @@ function ListaVendedor({ rol }) {
           </Button>
         </Modal.Footer>
       </Modal>
+      </Container>
     </div>
   );
 }

@@ -44,6 +44,7 @@ id_Producto INT NOT NULL PRIMARY KEY,
 Producto varchar(30),
 nombre_C Varchar (30),
 Precio decimal(12,2),
+cantidad INT,
 marca Varchar(30)
 );
 

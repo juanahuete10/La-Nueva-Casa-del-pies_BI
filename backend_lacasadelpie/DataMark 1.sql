@@ -1,5 +1,4 @@
 CREATE DATABASE hec_dim;
-
 USE hec_dim;
 
 CREATE TABLE d_ModoPagos (
@@ -17,8 +16,6 @@ CREATE TABLE d_Vendedor (
 
 );
 
-
-
 CREATE TABLE d_Clientes (
   id_Cliente Int NOT NULL PRIMARY KEY,
   cedula Varchar(16),
@@ -27,13 +24,13 @@ CREATE TABLE d_Clientes (
   historialdecompras Varchar(200)
 );
 
-
 CREATE TABLE h_Ventas (
   id_hv Int NOT NULL PRIMARY KEY, 
   cod_Venta Int , 
   id_Cliente Int,
   id_Producto Int,
   id_Vendedor Int,
+  id_tiempo Int,
   fecha Date,
   Estado Varchar(20),
   TipoVentas Varchar(20),
@@ -46,11 +43,22 @@ CREATE TABLE d_Producto (
 id_Producto INT NOT NULL PRIMARY KEY,
 Producto varchar(30),
 nombre_C Varchar (30),
-nombre Varchar(30),
 Precio decimal(12,2),
-marca Varchar(30),
-cantidadProducto Int
+marca Varchar(30)
 );
+
+CREATE TABLE d_tiempo (
+    id_tiempo INT NOT NULL PRIMARY KEY,
+    fecha Date,
+    anio INT,
+    mes INT,
+    dia INT
+);
+
+ALTER TABLE h_Ventas 
+ADD CONSTRAINT fk_tiempo 
+FOREIGN KEY (id_tiempo)  
+REFERENCES d_tiempo(id_tiempo);
 
 ALTER TABLE h_Ventas
 ADD COLUMN id_ModoPago INT,

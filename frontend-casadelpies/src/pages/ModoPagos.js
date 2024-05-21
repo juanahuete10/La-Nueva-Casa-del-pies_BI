@@ -3,24 +3,25 @@ import { Form, Row, Col, Container, FloatingLabel, Card, Button } from 'react-bo
 import Header from '../components/Header';
 import '../App.css';
 
-function ModoPagos({rol}) {
-
-  // Crear un estado para cada campo del formulario
+function ModoPagos({ rol }) {
   const [Nombre_ModoPago, setNombreModoPago] = useState('');
+  const [modopagos, setModoPagos] = useState([]);
 
+  // Función para cargar modos de pago
+  const loadModoPagos = () => {
+    fetch('http://localhost:5000/crud/readModopagos')
+      .then((response) => response.json())
+      .then((data) => setModoPagos(data))
+      .catch((error) => console.error('Error al obtener los pagos:', error));
+  };
 
   // Función para manejar el envío del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Crear un objeto con los datos del formulario
-    const formData = {
-      Nombre_ModoPago,
-    
-    };
+    const formData = { Nombre_ModoPago };
 
     try {
-      // Realizar una solicitud HTTP al backend para enviar los datos
       const response = await fetch('http://localhost:5000/crud/createmodoPagos', {
         method: 'POST',
         headers: {
@@ -30,11 +31,9 @@ function ModoPagos({rol}) {
       });
 
       if (response.ok) {
-        // El registro se creó exitosamente
         alert('Registro exitoso');
-        // Reiniciar los campos del formulario
         setNombreModoPago('');
-        
+        loadModoPagos(); // Llama a la función para cargar modos de pago después del registro exitoso
       } else {
         alert('Error al registrar pagos');
       }
@@ -44,30 +43,25 @@ function ModoPagos({rol}) {
     }
   };
 
-  return(
+  return (
     <div>
-      <Header rol={ rol}/>
-      
+      <Header rol={rol} />
       <Container>
         <Card className="espaciado">
           <Card.Body>
             <Card.Title>Registrar Modo De Pagos</Card.Title>
             <Form className="mt-3" onSubmit={handleSubmit}>
               <Row className="g-3">
-
                 <Col sm="6" md="6" lg="6">
                   <FloatingLabel controlId="Nombre_ModoPago" label="Modo De Pago">
                     <Form.Control
                       type="text"
-                      placeholder="Ingrese el meodo de pago"
-                      value={Nombre_ModoPago }
+                      placeholder="Ingrese el modo de pago"
+                      value={Nombre_ModoPago}
                       onChange={(e) => setNombreModoPago(e.target.value)}
                     />
                   </FloatingLabel>
                 </Col>
-           
-            
-
               </Row>
               <div className="center-button">
                 <Button variant="primary" type="submit" className="mt-3" size="lg">
@@ -78,8 +72,8 @@ function ModoPagos({rol}) {
           </Card.Body>
         </Card>
       </Container>
-
     </div>
   );
 }
+
 export default ModoPagos;

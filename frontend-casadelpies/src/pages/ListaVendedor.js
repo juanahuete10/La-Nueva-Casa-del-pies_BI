@@ -144,6 +144,8 @@ function ListaVendedor({ rol }) {
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>ID Usuario</th>
+                <td className="d-flex justify-content-center">
+                <th>Acciones</th></td>
               </tr>
             </thead>
             <tbody>
@@ -155,8 +157,8 @@ function ListaVendedor({ rol }) {
                   <td>{vendedor.nombre}</td>
                   <td>{vendedor.apellido}</td>
                   <td>{vendedor.id_Usuario}</td>
-                  <td>
-                    <Button variant="primary" onClick={() => openModal(vendedor)}>
+                  <td className="d-flex justify-content-center">
+                    <Button variant="primary" onClick={() => openModal(vendedor)} style={{ marginRight: '15px' }}> 
                       <FaPencil />
                     </Button>
                     <Button variant="danger" onClick={() => handleDelete(vendedor.id_Vendedor)}>

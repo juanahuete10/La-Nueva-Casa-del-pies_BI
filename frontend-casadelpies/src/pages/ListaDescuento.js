@@ -165,6 +165,8 @@ function ListaDescuento({rol}) {
                 <th>Condiciones</th>
                 <th>Fecha Inicio</th>
                 <th>Fecha Fin</th>
+                <td className="d-flex justify-content-center">
+                <th>Acciones</th></td>
               </tr>
             </thead>
             <tbody>   
@@ -175,8 +177,8 @@ function ListaDescuento({rol}) {
                   <td>{descuento.condiciones}</td>
                   <td>{formatDateForInput(descuento.fecha_Inicio)}</td>
                   <td>{formatDateForInput(descuento.fecha_Fin)}</td>
-                  <td>
-                    <Button variant="primary" onClick={() => openModal(descuento)}><FaPencil/></Button>
+                  <td className="d-flex justify-content-center">
+                    <Button variant="primary" onClick={() => openModal(descuento)} style={{ marginRight: '15px' }}> <FaPencil/></Button>
                     <Button variant="danger" onClick={() => handleDelete(descuento.id_Promociones)}><FaTrashCan/></Button>
                   </td>
                 </tr>

@@ -39,15 +39,15 @@ function Estadisticas({ rol }) {
       }
 
       const nombresProductos = productos.map((producto) => producto.nombre);
-      const precio = productos.map((producto) => producto.precio);
+      const cantidad = productos.map((producto) => producto.cantidad);
 
       const almacen = new Chart(ctx, { 
         type: 'doughnut',
         data: {
           labels: nombresProductos,
           datasets: [{
-            label: 'Precio',
-            data: precio,
+            label: 'Candidad de Productos',
+            data: cantidad,
             backgroundColor: [
               'rgba(255, 99, 132, 0.5)',
               'rgba(54, 162, 235, 0.5)',

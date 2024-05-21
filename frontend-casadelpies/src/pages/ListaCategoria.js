@@ -149,6 +149,8 @@ function ListaDescuento({rol}) {
                 <th>ID</th>
                 <th>Nombre Categoria</th>
                 <th>Descripcion</th>
+                <td className="d-flex justify-content-center">
+                <th>Acciones</th></td>
                 
               </tr>
             </thead>
@@ -158,8 +160,8 @@ function ListaDescuento({rol}) {
                   <td>{categorias.id_Categoria}</td>
                   <td>{categorias.nombre_C}</td>
                   <td>{categorias.descripcion}</td>
-                  <td>    
-                  <Button variant="primary" onClick={() => openModal(categorias)}><FaRegPenToSquare/></Button>
+                  <td className="d-flex justify-content-center">    
+                  <Button variant="primary" onClick={() => openModal(categorias)} style={{ marginRight: '15px' }}> <FaRegPenToSquare/></Button>
                       <Button variant="danger" onClick={() => handleDelete(categorias.id_Categoria)}><FaTrashCanArrowUp/></Button>
                     </td>
                 </tr>

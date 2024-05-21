@@ -1,5 +1,4 @@
 CREATE DATABASE casadelpies1;
-
 USE casadelpies1;
 
 CREATE TABLE Categorias (
@@ -60,10 +59,12 @@ CREATE TABLE Productos (
   precio Decimal(12,2),
   id_Marca Int,
   id_Promociones Int,
+  cantidad INT,
   imagen LONGTEXT
 );
 
 CREATE TABLE DetalleVenta (
+  id_detalleVenta Int NOT NULL PRIMARY KEY AUTO_INCREMENT,
   cod_Venta Int,
   cantidad Int,
   id_producto Int,
@@ -137,7 +138,6 @@ ADD CONSTRAINT FK_DetalleVenta_id_producto
 FOREIGN KEY (id_producto) 
 REFERENCES Productos (id_Producto);
 
-
 ALTER TABLE Clientes 
 ADD CONSTRAINT FK_Clientes_id_Usuario
 FOREIGN KEY (id_Usuario) 
@@ -147,3 +147,23 @@ ALTER TABLE Vendedor
 ADD CONSTRAINT FK_Vendedor_id_Usuario
 FOREIGN KEY (id_Usuario) 
 REFERENCES Usuario (id_Usuario);
+
+SELECT 
+    P.id_Producto,
+    P.nombre AS Producto,
+    C.nombre_C,
+    P.precio,
+    M.nombre_Marca AS marca,
+    DV.cantidad AS cantidadProducto
+FROM 
+    Productos AS P
+INNER JOIN 
+    Categorias AS C ON P.id_Categoria = C.id_Categoria
+INNER JOIN 
+    Marcas AS M ON P.id_Marca = M.id_Marca
+INNER JOIN 
+    DetalleVenta AS DV ON DV.cod_Venta = P.id_producto;
+    
+/*Crear un nuevo usuario*/
+INSERT INTO Usuario (nombre_Usuario, contrasena, rol)
+VALUES ('Mauri', '2024', 'admin');

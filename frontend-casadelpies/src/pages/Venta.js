@@ -417,7 +417,8 @@ function Venta({ rol }) {
                             <th>Precio</th>
                             <th>Cantidad</th>
                             <th>Subtotal</th>
-                            <th>Acciones</th>
+                            <td className="d-flex justify-content-center">
+                            <th>Acciones</th></td>
                           </tr>
                         </thead>
                         <tbody>

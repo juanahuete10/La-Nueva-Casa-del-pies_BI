@@ -80,6 +80,8 @@ function ListaMarcas({rol}) {
               <tr>
                 <th>ID</th>
                 <th>Nombre de la Marca</th> {/* Corrected label */}
+                <td className="d-flex justify-content-center">
+                <th>Acciones</th></td>
               </tr>
             </thead>
             <tbody>
@@ -87,8 +89,8 @@ function ListaMarcas({rol}) {
                 <tr key={marcas.id_Marca}>
                   <td>{marcas.id_Marca}</td>
                   <td>{marcas.nombre_Marca}</td>
-                  <td>
-                  <Button variant="primary" onClick={() => openModal(marcas)}><FaPencil/></Button>
+                  <td className="d-flex justify-content-center">
+                  <Button variant="primary" onClick={() => openModal(marcas)} style={{ marginRight: '15px' }}> <FaPencil/></Button>
                   <Button variant="danger" onClick={() => handleDelete(marcas.id_Marca)}><FaTrashCan/></Button>
                   </td>
                 </tr>

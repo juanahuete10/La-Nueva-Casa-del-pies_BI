@@ -144,7 +144,8 @@ function ListaCliente({ rol }) {
                 <th>Apellido</th>
                 <th>Historial de Compras</th>
                 <th>ID Usuario</th>
-                <th>Acciones</th>
+                <td className="d-flex justify-content-center">
+                <th>Acciones</th></td>
               </tr>
             </thead>
             <tbody>
@@ -156,8 +157,8 @@ function ListaCliente({ rol }) {
                   <td>{cliente.apellido}</td>
                   <td>{cliente.historialdecompras}</td>
                   <td>{cliente.id_Usuario}</td>
-                  <td>
-                    <Button variant="primary" onClick={() => openModal(cliente)}>
+                  <td className="d-flex justify-content-center">
+                    <Button variant="primary" onClick={() => openModal(cliente)} style={{ marginRight: '15px' }}> 
                       <FaPencil />
                     </Button>
                     <Button variant="danger" onClick={() => handleDelete(cliente.id_Cliente)}>

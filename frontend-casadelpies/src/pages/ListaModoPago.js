@@ -103,6 +103,8 @@ function ListaModoPago({rol}) {
               <tr>
                 <th>ID</th>
                 <th>Modo De pagos</th>
+                <td className="d-flex justify-content-center">
+                <th>Acciones</th></td>
             
               </tr>
             </thead>
@@ -111,8 +113,8 @@ function ListaModoPago({rol}) {
                 <tr key={modopagos.id_ModoPago}>
                   <td>{modopagos.id_ModoPago}</td>
                   <td>{modopagos.Nombre_ModoPago}</td>
-                  <td>
-                    <Button variant="primary" onClick={() => openModal(modopagos)}><FaPencil/></Button>
+                  <td className="d-flex justify-content-center">
+                    <Button variant="primary" onClick={() => openModal(modopagos)} style={{ marginRight: '15px' }}><FaPencil/></Button>
                     <Button variant="danger" onClick={() => handleDelete(modopagos.id_ModoPago)}><FaTrashCan/></Button>
                   </td>
                 </tr>

@@ -3,7 +3,7 @@ USE hec_dim;
 
 CREATE TABLE d_ModoPagos (
   id_ModoPago Int NOT NULL PRIMARY KEY,
-  Nombre_ModoPago Varchar(20)
+  Nombre_ModoPago Varchar(30)
 
 );
 

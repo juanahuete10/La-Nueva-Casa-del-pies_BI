@@ -1,147 +1,162 @@
 USE hec_dim;
 
--- Ventas totales por año
+-- Ventas totales por año:
 SELECT 
-    t.anio, 
-    SUM(h.total_Venta) AS Ventas_totales
+    anio, 
+    SUM(total_Venta) AS Ventas_totales
 FROM 
-    h_Ventas h
+    h_Ventas
 JOIN 
-    d_tiempo t ON h.id_tiempo = t.id_tiempo
+    d_tiempo ON h_Ventas.id_tiempo = d_tiempo.id_tiempo
 GROUP BY 
-    t.anio;
+    anio;
 
--- Ventas totales por mes de un año específico (por ejemplo, 2024)
+-- Ventas totales por mes de un año específico (por ejemplo, 2024):
 SELECT 
-    t.mes, 
-    SUM(h.total_Venta) AS Ventas_totales
+    mes, 
+    SUM(total_Venta) AS Ventas_totales
 FROM 
-    h_Ventas h
+    h_Ventas
 JOIN 
-    d_tiempo t ON h.id_tiempo = t.id_tiempo
+    d_tiempo ON h_Ventas.id_tiempo = d_tiempo.id_tiempo
 WHERE 
-    t.anio = 2024
+    anio = 2024
 GROUP BY 
-    t.mes;
+    mes;
 
--- Ventas totales por día de un mes y año específicos (por ejemplo, mayo de 2024)
+-- Ventas totales por día de un mes y año específicos (por ejemplo, mayo de 2024):
 SELECT 
-    t.dia, 
-    SUM(h.total_Venta) AS Ventas_totales
+    dia, 
+    SUM(total_Venta) AS Ventas_totales
 FROM 
-    h_Ventas h
+    h_Ventas
 JOIN 
-    d_tiempo t ON h.id_tiempo = t.id_tiempo
+    d_tiempo ON h_Ventas.id_tiempo = d_tiempo.id_tiempo
 WHERE 
-    t.anio = 2024 AND t.mes = 5
+    anio = 2024 AND mes = 5
 GROUP BY 
-    t.dia;
+    dia;
 
--- Ventas totales por trimestre
+-- Ventas totales por trimestre:
 SELECT 
-    QUARTER(t.fecha) AS Trimestre, 
-    SUM(h.total_Venta) AS Ventas_totales
+    trimestre, 
+    SUM(total_Venta) AS Ventas_totales
 FROM 
-    h_Ventas h
+    h_Ventas
 JOIN 
-    d_tiempo t ON h.id_tiempo = t.id_tiempo
+    d_tiempo ON h_Ventas.id_tiempo = d_tiempo.id_tiempo
 GROUP BY 
-    Trimestre;
+    trimestre;
 
--- Ventas totales por producto
+-- Ventas totales por producto:
 SELECT 
-    p.id_Producto, 
-    p.Producto AS Nombre_Producto, 
-    SUM(h.total_Venta) AS Ventas_totales
+    id_Producto, 
+    Producto, 
+    SUM(total_Venta) AS Ventas_totales
 FROM 
-    h_Ventas h
+    h_Ventas
 JOIN 
-    d_Producto p ON h.id_Producto = p.id_Producto
+    d_Producto ON h_Ventas.id_Producto = d_Producto.id_Producto
 GROUP BY 
-    p.id_Producto, p.Producto;
+    id_Producto, Producto;
 
--- Ventas totales por categoría de producto
+-- Ventas totales por categoría de producto:
 SELECT 
-    p.nombre_C AS Nombre_Categoria,
-    SUM(h.total_Venta) AS Ventas_totales
+    nombre_C,
+    SUM(total_Venta) AS Ventas_Totales
 FROM 
-    h_Ventas h
+    h_Ventas
 JOIN 
-    d_Producto p ON h.id_Producto = p.id_Producto
+    d_Producto ON h_Ventas.id_Producto = d_Producto.id_Producto
 GROUP BY 
-    p.nombre_C
+    nombre_C
 ORDER BY 
-    Ventas_totales DESC;
+    Ventas_Totales DESC;
 
--- Ventas totales por productos en stock (productos con stock mayor a 0)
+-- Ventas de productos activos:
 SELECT 
-    p.Producto AS Nombre_Producto,
-    SUM(h.total_Venta) AS Ventas_totales
+    nombre,
+    SUM(total_Venta) AS Ventas_Totales
 FROM 
-    h_Ventas h
+    h_Ventas
 JOIN 
-    d_Producto p ON h.id_Producto = p.id_Producto
+    d_Producto ON h_Ventas.id_Producto = d_Producto.id_Producto
 WHERE 
-    p.cantidad > 0
+    activo = TRUE
 GROUP BY 
-    p.Producto
+    nombre
 ORDER BY 
-    Ventas_totales DESC;
+    Ventas_Totales DESC;
 
--- Promedio de ventas por producto    
+-- Ventas de productos en stock (productos con stock mayor a 0):
 SELECT 
-    p.Producto AS Nombre_Producto,
-    AVG(h.total_Venta) AS Promedio_Ventas
+    nombre,
+    SUM(total_Venta) AS Ventas_Totales
 FROM 
-    h_Ventas h
+    h_Ventas
 JOIN 
-    d_Producto p ON h.id_Producto = p.id_Producto
+    d_Producto ON h_Ventas.id_Producto = d_Producto.id_Producto
+WHERE 
+    cantidad > 0
 GROUP BY 
-    p.Producto
+    nombre
+ORDER BY 
+    Ventas_Totales DESC;
+
+-- Promedio de ventas por producto:    
+SELECT 
+    nombre,
+    AVG(total_Venta) AS Promedio_Ventas
+FROM 
+    h_Ventas
+JOIN 
+    d_Producto ON h_Ventas.id_Producto = d_Producto.id_Producto
+GROUP BY 
+    nombre
 ORDER BY 
     Promedio_Ventas DESC;
 
--- Ventas por producto y por mes
+-- Ventas por producto y por mes:
 SELECT 
-    p.Producto AS Nombre_Producto,
-    t.mes,
-    t.anio,
-    SUM(h.total_Venta) AS Ventas_totales
+    Producto,
+    mes,
+    anio,
+    SUM(total_Venta) AS Ventas_Totales
 FROM 
-    h_Ventas h
+    h_Ventas
 JOIN 
-    d_Producto p ON h.id_Producto = p.id_Producto
+    d_Producto ON h_Ventas.id_Producto = d_Producto.id_Producto
 JOIN 
-    d_tiempo t ON h.id_tiempo = t.id_tiempo
+    d_tiempo ON h_Ventas.id_tiempo = d_tiempo.id_tiempo
 GROUP BY 
-    p.Producto, t.mes, t.anio
+    Producto, mes, anio
 ORDER BY 
-    t.anio, t.mes, Ventas_totales DESC;
+    anio, mes, Ventas_Totales DESC;
 
--- Top 5 productos más vendidos por cantidad
+-- Top 5 productos más vendidos por cantidad:
 SELECT 
-    p.Producto AS Nombre_Producto,
-    SUM(h.id_Producto) AS Cantidad_Total_Vendida
+    Producto,
+    SUM(cantidad) AS Cantidad_Total_Vendida
 FROM 
-    h_Ventas h
+    h_Ventas
 JOIN 
-    d_Producto p ON h.id_Producto = p.id_Producto
+    d_Producto ON h_Ventas.id_Producto = d_Producto.id_Producto
 GROUP BY 
-    p.Producto
+    Producto
 ORDER BY 
     Cantidad_Total_Vendida DESC
 LIMIT 5;
 
--- Top 5 productos más vendidos por monto de ventas
+-- Top 5 productos más vendidos por cantidad:
 SELECT 
-    p.Producto AS Nombre_Producto,
-    SUM(h.total_Venta) AS Ventas_totales
+    Producto,
+    SUM(total_Venta) AS Ventas_Totales
 FROM 
-    h_Ventas h
+    h_Ventas
 JOIN 
-    d_Producto p ON h.id_Producto = p.id_Producto
+    d_Producto ON h_Ventas.id_Producto = d_Producto.id_Producto
 GROUP BY 
-    p.Producto
+    Producto
 ORDER BY 
-    Ventas_totales DESC
+    Ventas_Totales DESC
 LIMIT 5;

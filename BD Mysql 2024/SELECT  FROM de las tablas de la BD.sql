@@ -14,6 +14,4 @@ SELECT * FROM casadelpies1.clientes;
 SELECT * FROM casadelpies1.productos;
 SELECT * FROM casadelpies1.modopagos;
 SELECT * FROM casadelpies1.vendedor;
-
-/**/
 SELECT * FROM casadelpies1.detalleventa;

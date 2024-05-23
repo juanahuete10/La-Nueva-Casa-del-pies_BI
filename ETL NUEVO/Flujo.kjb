@@ -19,7 +19,7 @@
     <database>hec_dim</database>
     <port>3306</port>
     <username>root</username>
-    <password>Encrypted 2be98afc86aa7f2e4cb79ce108fc0fcc3</password>
+    <password>Encrypted 2be98afc86aa7f2a9b20abf7c8cc2fd89</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -571,7 +571,7 @@
       <description/>
       <type>SQL</type>
       <attributes/>
-      <sql/>
+      <sql>TRUNCATE TABLE h_Ventas</sql>
       <useVariableSubstitution>F</useVariableSubstitution>
       <sqlfromfile>F</sqlfromfile>
       <sqlfilename/>

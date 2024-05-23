@@ -1,52 +1,40 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Button, Container, Card, Row, Col, Form, Modal, FloatingLabel  } from 'react-bootstrap';
+import { Table, Button, Card, Row, Col, Container, Form, Modal, FloatingLabel } from 'react-bootstrap';
 import Header from '../components/Header';
-import { FaTrashCan, FaPencil } from 'react-icons/fa6';
+import { FaTrashAlt, FaPencilAlt } from 'react-icons/fa';
 
-function ListaModoPago({rol}) {
-  const [modopagos, setModoPagos] = useState([]);
+function ListaModoPagos({ rol }) {
+  const [modoPagos, setModoPagos] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [selectedModoPagos, setSelectedModoPagos] = useState({});
+  const [selectedModoPago, setSelectedModoPago] = useState({});
   const [formData, setFormData] = useState({
     Nombre_ModoPago: '',
-  
-    
   });
 
-  // Función para abrir el modal y pasar los datos del pago seleccionada
-  const openModal = (modopagos) => {
-    setSelectedModoPagos(modopagos);
+  const loadModoPagos = () => {
+    fetch('http://localhost:5000/readmodopagos')
+      .then((response) => response.json())
+      .then((data) => setModoPagos(data))
+      .catch((error) => console.error('Error al obtener los modos de pago:', error));
+  };
 
-        
+  const openModal = (modoPago) => {
+    setSelectedModoPago(modoPago);
     setFormData({
-        Nombre_ModoPago:modopagos.Nombre_ModoPago,
-      
+      Nombre_ModoPago: modoPago.Nombre_ModoPago,
     });
     setShowModal(true);
   };
 
-
-  // Función para manejar cambios en el formulario
   const handleFormChange = (e) => {
-    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value,
+      [e.target.name]: e.target.value,
     });
   };
 
-  const loadModoPagos = () => {
-    fetch('http://localhost:5000/crud/readModopagos')
-      .then((response) => response.json())
-      .then((data) => setModoPagos(data))
-      .catch((error) => console.error('Error al obtener los pagos:', error));
-  };
-
-
-  // Función para enviar el formulario de actualización
   const handleUpdate = () => {
-    // Realiza la solicitud PUT al servidor para actualizar el registro
-    fetch(`http://localhost:5000/crud/updateModoPagos/${selectedModoPagos.id_ModoPago}`, {
+    fetch(`http://localhost:5000/updatemodopagos/${selectedModoPago.id_ModoPago}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -55,118 +43,119 @@ function ListaModoPago({rol}) {
     })
       .then((response) => {
         if (response.ok) {
-          // La actualización fue exitosa, puedes cerrar el modal y refrescar la lista de pagos
           setShowModal(false);
-          loadModoPagos(); // Cargar la lista de pagos actualizada
+          loadModoPagos();
         }
       })
       .catch((error) => console.error('Error al actualizar el registro:', error));
   };
 
-  // Función para eliminar un modo pago
   const handleDelete = (id_ModoPago) => {
-    const confirmation = window.confirm('¿Seguro que deseas eliminar este pago?');
+    const confirmation = window.confirm('¿Seguro que deseas eliminar este modo de pago?');
     if (confirmation) {
-      // Realiza la solicitud DELETE al servidor para eliminar la promoción
-      fetch(`http://localhost:5000/crud/deleteModoPagoss/${id_ModoPago}`, {
+      fetch(`http://localhost:5000/deletemodopagos/${id_ModoPago}`, {
         method: 'DELETE',
       })
         .then((response) => {
           if (response.ok) {
-            // La eliminación fue exitosa, refresca la lista de modopagos
             loadModoPagos();
           }
         })
-        .catch((error) => console.error('Error al eliminar el pago:', error));
+        .catch((error) => console.error('Error al eliminar el modo de pago:', error));
     }
   };
 
-  // Realiza una solicitud GET al servidor para obtener los pagos
   useEffect(() => {
-    fetch('http://localhost:5000/crud/readModopagos')
-      .then((response) => response.json())
-      .then((data) => setModoPagos(data))
-      .catch((error) => console.error('Error al obtener los pagos:', error));
+    loadModoPagos();
   }, []);
 
   return (
     <div>
-      <Header rol={ rol}/>
+      <Header rol={rol} />
 
       <Container>
-
-      <Card className="espaciado">
-        <Card.Body>
-          <Card.Title className="mb-3">Lista de Modo Pagos</Card.Title>
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Modo De pagos</th>
-                <td className="d-flex justify-content-center">
-                <th>Acciones</th></td>
-            
-              </tr>
-            </thead>
-            <tbody>
-              {modopagos.map((modopagos) => (
-                <tr key={modopagos.id_ModoPago}>
-                  <td>{modopagos.id_ModoPago}</td>
-                  <td>{modopagos.Nombre_ModoPago}</td>
-                  <td className="d-flex justify-content-center">
-                    <Button variant="primary" onClick={() => openModal(modopagos)} style={{ marginRight: '15px' }}><FaPencil/></Button>
-                    <Button variant="danger" onClick={() => handleDelete(modopagos.id_ModoPago)}><FaTrashCan/></Button>
-                  </td>
+        <Card className="espaciado">
+          <Card.Body>
+            <Card.Title className="mb-3">Lista de Modos de Pago</Card.Title>
+            <Table striped bordered hover>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Modo de Pago</th>
+                  <th className="text-center">Acciones</th>
                 </tr>
-              ))}
-            </tbody>
-          </Table>
-        </Card.Body>
-      </Card>
+              </thead>
+              <tbody>
+                {modoPagos.length > 0 ? (
+                  modoPagos.map((modoPago) => (
+                    <tr key={modoPago.id_ModoPago}>
+                      <td>{modoPago.id_ModoPago}</td>
+                      <td>{modoPago.Nombre_ModoPago}</td>
+                      <td className="text-center">
+                        <Button
+                          variant="primary"
+                          onClick={() => openModal(modoPago)}
+                          style={{ marginRight: '10px' }}
+                        >
+                          <FaPencilAlt />
+                        </Button>
+                        <Button
+                          variant="danger"
+                          onClick={() => handleDelete(modoPago.id_ModoPago)}
+                        >
+                          <FaTrashAlt />
+                        </Button>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="3" className="text-center">No hay datos disponibles</td>
+                  </tr>
+                )}
+              </tbody>
+            </Table>
+          </Card.Body>
+        </Card>
 
-      <Modal show={showModal} onHide={() => setShowModal(false)} size="lg">
-        <Modal.Header closeButton>
-          <Modal.Title>Actualizar Modo Pagos</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Card className="espaciado">
-            <Card.Body>
-              <Card.Title>Modo Pago</Card.Title>
-              <Form className="mt-3">
-                <Row className="g-3">
-
-                  <Col sm="6" md="6" lg="6">
-                    <FloatingLabel controlId="Nombre_ModoPago" label="Modo Pago">
-                      <Form.Control
-                        type="text"
-                        placeholder="Ingrese el modo de pago"
-                        name="Nombre_ModoPago"
-                        value={formData.Nombre_ModoPago}
-                        onChange={handleFormChange}
-                      />
-                    </FloatingLabel>
-                  </Col>
-
-                
-
-                </Row>
-              </Form>
-            </Card.Body>
-          </Card>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowModal(false)}>
-            Cerrar
-          </Button>
-          <Button variant="primary" onClick={handleUpdate}>
-            Actualizar
-          </Button>
-        </Modal.Footer>
-      </Modal>
+        <Modal show={showModal} onHide={() => setShowModal(false)} size="lg">
+          <Modal.Header closeButton>
+            <Modal.Title>Actualizar Modo de Pago</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Card className="espaciado">
+              <Card.Body>
+                <Card.Title>Modo de Pago</Card.Title>
+                <Form className="mt-3">
+                  <Row className="g-3">
+                    <Col sm="6" md="6" lg="6">
+                      <FloatingLabel controlId="Nombre_ModoPago" label="Modo de Pago">
+                        <Form.Control
+                          type="text"
+                          placeholder="Ingrese el modo de pago"
+                          name="Nombre_ModoPago"
+                          value={formData.Nombre_ModoPago}
+                          onChange={handleFormChange}
+                        />
+                      </FloatingLabel>
+                    </Col>
+                  </Row>
+                </Form>
+              </Card.Body>
+            </Card>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={() => setShowModal(false)}>
+              Cerrar
+            </Button>
+            <Button variant="primary" onClick={handleUpdate}>
+              Actualizar
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </Container>
-
     </div>
   );
 }
 
-export default ListaModoPago;
+export default ListaModoPagos;

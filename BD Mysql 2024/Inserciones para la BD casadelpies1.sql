@@ -101,19 +101,19 @@ INSERT INTO Productos (id_Categoria, nombre, descripcion, precio, id_Marca, id_P
 (4, 'Asics Gel-Kayano', 'Zapatos de running de alto rendimiento', 160.00, 9, 7, 20, 'imagen_asics_gel_kayano.jpg'), 
 (5, 'Skechers Go Walk', 'Zapatos cómodos para caminar', 75.00, 10, NULL, 60, 'imagen_skechers_go_walk.jpg');
 
-INSERT INTO Ventas (id_Cliente, id_Vendedor, cantidadProducto, id_ModoPago, fecha, Estado, TipoVentas, Direccion_Envio, total_Venta) VALUES
-(1, 1, 2, 1, '2024-05-01', 'Completado', 'Online', 'Calle Falsa 123', 240),
-(2, 2, 1, 2, '2024-05-02', 'Completado', 'Online', 'Av. Siempre Viva 742', 180),
-(3, 3, 3, 3, '2024-05-03', 'Completado', 'Tienda Física', 'Boulevard de los Sueños Rotos', 210),
-(4, 4, 1, 4, '2024-05-04', 'Completado', 'Tienda Física', 'Calle del Olvido 456', 90),
-(5, 5, 2, 5, '2024-05-05', 'Completado', 'Online', 'Paseo de la Reforma', 300),
-(6, 6, 1, 6, '2024-05-06', 'Completado', 'Tienda Física', 'Camino Real 789', 65),
-(7, 7, 2, 7, '2024-05-07', 'Completado', 'Online', 'Calle Mayor 101', 120),
-(8, 8, 1, 8, '2024-05-08', 'Completado', 'Online', 'Avenida Central 202', 85),
-(9, 9, 3, 9, '2024-05-09', 'Completado', 'Tienda Física', 'Plaza Norte 303', 480),
-(10, 10, 1, 10, '2024-05-10', 'Completado', 'Online', 'Avenida Sur 404', 75);
+INSERT INTO Ventas (id_Cliente, id_Vendedor, id_ModoPago, fecha, Estado, TipoVentas, Direccion_Envio) VALUES
+(1, 1, 1, '2024-05-01', 'Completado', 'Online', 'Calle Falsa 123'),
+(2, 2, 2, '2024-05-02', 'Completado', 'Online', 'Av. Siempre Viva 742'),
+(3, 3, 3, '2024-05-03', 'Completado', 'Tienda Física', 'Boulevard de los Sueños Rotos'),
+(4, 4, 4, '2024-05-04', 'Completado', 'Tienda Física', 'Calle del Olvido 456'),
+(5, 5, 5, '2024-05-05', 'Completado', 'Online', 'Paseo de la Reforma'),
+(6, 6, 6, '2024-05-06', 'Completado', 'Tienda Física', 'Camino Real 789'),
+(7, 7, 7, '2024-05-07', 'Completado', 'Online', 'Calle Mayor 101'),
+(8, 8, 8, '2024-05-08', 'Completado', 'Online', 'Avenida Central 202'),
+(9, 9, 9, '2024-05-09', 'Completado', 'Tienda Física', 'Plaza Norte 303'),
+(10, 10, 10, '2024-05-10', 'Completado', 'Online', 'Avenida Sur 404');
 
-INSERT INTO DetalleVenta (cod_Venta, cantidad, id_Producto, PrecioUnitario, TotalDetalle) VALUES
+INSERT INTO DetalleVenta (cod_Venta, cantidadProducto, id_Producto, PrecioUnitario, TotalDetalle) VALUES
 (1, 2, 1, 120, 240),
 (2, 1, 2, 180, 180),
 (3, 3, 3, 70, 210),

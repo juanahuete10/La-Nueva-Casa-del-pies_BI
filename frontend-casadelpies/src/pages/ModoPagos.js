@@ -7,13 +7,6 @@ function ModoPagos({ rol }) {
   const [Nombre_ModoPago, setNombreModoPago] = useState('');
   const [modopagos, setModoPagos] = useState([]);
 
-  // Función para cargar modos de pago
-  const loadModoPagos = () => {
-    fetch('http://localhost:5000/crud/readModopagos')
-      .then((response) => response.json())
-      .then((data) => setModoPagos(data))
-      .catch((error) => console.error('Error al obtener los pagos:', error));
-  };
 
   // Función para manejar el envío del formulario
   const handleSubmit = async (e) => {
@@ -22,7 +15,7 @@ function ModoPagos({ rol }) {
     const formData = { Nombre_ModoPago };
 
     try {
-      const response = await fetch('http://localhost:5000/crud/createmodoPagos', {
+      const response = await fetch('http://localhost:5000/crud/createmodopago', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -33,7 +26,6 @@ function ModoPagos({ rol }) {
       if (response.ok) {
         alert('Registro exitoso');
         setNombreModoPago('');
-        loadModoPagos(); // Llama a la función para cargar modos de pago después del registro exitoso
       } else {
         alert('Error al registrar pagos');
       }
@@ -52,7 +44,7 @@ function ModoPagos({ rol }) {
             <Card.Title>Registrar Modo De Pagos</Card.Title>
             <Form className="mt-3" onSubmit={handleSubmit}>
               <Row className="g-3">
-                <Col sm="6" md="6" lg="6">
+                <Col sm="12" md="12" lg="12">
                   <FloatingLabel controlId="Nombre_ModoPago" label="Modo De Pago">
                     <Form.Control
                       type="text"

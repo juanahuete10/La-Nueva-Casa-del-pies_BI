@@ -60,11 +60,12 @@ function Venta({ rol }) {
 
   const AgregarDetalleProducto = () => {
     if (selectedProducto && cantidadProducto) {
-      const nuevoDetalle = {
+      const total = (selectedProducto.precio * cantidadProducto);
+      const nuevoDetalle = {  
+        cantidadProducto: cantidadProducto,
         id_Producto: selectedProducto.id_Producto,
-        nombre: selectedProducto.nombre,
-        precio: selectedProducto.precio,
-        cantidadProducto: cantidadProducto
+        PrecioUnitario: selectedProducto.precio,
+        TotalDetalle: total
       };
       setDetalleVenta([...detalleventa, nuevoDetalle]);
       setCantidadProducto('');
@@ -225,7 +226,7 @@ function Venta({ rol }) {
         Estado: Estado,
         TipoVentas: TipoVentas,
         Direccion_Envio: Direccion_Envio,
-        detalle: detalleventa,
+        detalle: detalleventa
       };
 
       fetch('http://localhost:5000/crud/createventa', {
@@ -413,7 +414,6 @@ function Venta({ rol }) {
                         <thead>
                           <tr>
                             <th>ID</th>
-                            <th>Nombre</th>
                             <th>Precio</th>
                             <th>Cantidad</th>
                             <th>Subtotal</th>
@@ -425,10 +425,9 @@ function Venta({ rol }) {
                         {detalleventa.map((detalle) => (
                           <tr key={detalle.id_Producto}>
                             <td>{detalle.id_Producto}</td>
-                            <td>{detalle.nombre}</td>
-                            <td>{detalle.precio}</td>
+                            <td>{detalle.PrecioUnitario}</td>
                             <td>{detalle.cantidadProducto}</td>
-                            <td>{detalle.cantidadProducto * detalle.precio}</td>
+                            <td>{detalle.TotalDetalle}</td>
                             <td className="align-button">
                               <Button 
                                 size="sm"

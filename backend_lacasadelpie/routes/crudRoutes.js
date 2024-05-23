@@ -403,16 +403,26 @@ router.get('/readmodopagos', (req, res) => {
   });
 });
 
-router.post('/createmodoPagos', (req, res) => {
-  try {
-    // Código para crear un nuevo modo de pago
-    // ...
-    res.status(200).json({ message: 'Modo de pago creado exitosamente' });
-  } catch (error) {
-    console.error('Error al crear el modo de pago:', error);
-    res.status(500).json({ error: 'Error interno del servidor al crear el modo de pago' });
+// Ruta para insertar un nuevo modo de pago
+router.post('/createmodopago', (req, res) => {
+  // Extraer datos de la solicitud
+  const { Nombre_ModoPago } = req.body;
+  // Verificar que el nombre del modo de pago no esté vacío
+  if (!Nombre_ModoPago) {
+    return res.status(400).json({ error: 'El nombre del modo de pago es obligatorio' });
   }
+  // Realizar la inserción del modo de pago en la tabla ModoPagos
+  const sqlModoPago = 'INSERT INTO ModoPagos (Nombre_ModoPago) VALUES (?)';
+  db.query(sqlModoPago, [Nombre_ModoPago], (err, result) => {
+    if (err) {
+      console.error('Error al insertar modo de pago:', err);
+      return res.status(500).json({ error: 'Error al insertar modo de pago' });
+    }
+    // Devolver respuesta exitosa
+    res.status(200).json({ message: 'Modo de pago agregado con éxito'});
+  });
 });
+
 
   // Ruta para actualizar un registro existente por ID
 router.put('/updateModoPagos/:id_ModoPago', (req, res) => {
@@ -898,35 +908,36 @@ router.delete('/deleteclientes/:id_Cliente', (req, res) => {
 //**************************2024
 
 
-  // Ruta para registrar una venta con su detalle
-  router.post('/createventa', (req, res) => {
-    // Extraer datos de la solicitud
-    const { id_Cliente, id_Vendedor, id_ModoPago, fecha, Estado, TipoVentas, Direccion_Envio, detalle } = req.body;
+// Ruta para registrar una venta con su detalle
+router.post('/createventa', (req, res) => {
+  // Extraer datos de la solicitud
+  const { id_Cliente, id_Vendedor, id_ModoPago, fecha, Estado, TipoVentas, Direccion_Envio, detalle } = req.body;
 
-    // Realizar la inserción de la venta en la tabla Ventas
-    const sqlventas = 'INSERT INTO ventas (id_Cliente, id_Vendedor, id_ModoPago, fecha, Estado, TipoVentas, Direccion_Envio) VALUES (?,?,?,?,?,?,?)';
-    db.query(sqlventas, [id_Cliente, id_Vendedor, id_ModoPago, fecha, Estado, TipoVentas, Direccion_Envio], (err, result) => {
+  // Realizar la inserción de la venta en la tabla Ventas
+  const sqlventas = 'INSERT INTO ventas (id_Cliente, id_Vendedor, id_ModoPago, fecha, Estado, TipoVentas, Direccion_Envio) VALUES (?,?,?,?,?,?,?)';
+  db.query(sqlventas, [id_Cliente, id_Vendedor, id_ModoPago, fecha, Estado, TipoVentas, Direccion_Envio], (err, result) => {
+    if (err) {
+      console.error('Error al insertar venta:', err);
+      return res.status(500).json({ error: 'Error al insertar venta' });
+    }
+
+    const cod_Venta = result.insertId; // Obtener el ID de la venta insertada
+
+    // Iterar sobre el detalle de la venta y realizar inserciones en DetalleVenta
+    const sqldetalleventa = 'INSERT INTO detalleventa (cod_Venta, cantidadProducto, id_Producto, PrecioUnitario, TotalDetalle) VALUES ?';
+    const values = detalle.map((item) => [cod_Venta, item.cantidadProducto, item.id_Producto, item.PrecioUnitario, item.TotalDetalle]);
+
+    db.query(sqldetalleventa, [values], (err, result) => { 
       if (err) {
-        console.error('Error al insertar venta:', err);
-        return res.status(500).json({ error: 'Error al insertar venta' });
+        console.error('Error al insertar detalle de venta:', err);
+        return res.status(500).json({ error: 'Error al insertar detalle de venta' });
       }
-
-      const cod_Venta = result.insertId; // Obtener el ID de la venta insertada
-
-      // Iterar sobre el detalle de la venta y realizar inserciones en DetalleVenta
-      const sqldetalleventa = 'INSERT INTO detalleventa (id_detalleVenta, cod_Venta, cantidadProducto, id_Producto) VALUES ?';
-      const values = detalle.map((item) => [cod_Venta, item.cantidadProducto, item.id_Producto]);
-      db.query(sqldetalleventa, [values], (err, result) => {
-        if (err) {
-          console.error('Error al insertar detalle de venta:', err);
-          return res.status(500).json({ error: 'Error al insertar detalle de venta' });
-        }
-
-        // Devolver respuesta exitosa
-        res.status(201).json({ message: 'Venta y detalle de venta agregados con éxito' });
-      });
+      // Devolver respuesta exitosa
+      res.status(201).json({ message: 'Venta y detalle de venta agregados con éxito' });
     });
   });
+});
+
 
   // Ruta para listar todas las ventas con su detalle
   router.get('/readventas', (req, res) => {

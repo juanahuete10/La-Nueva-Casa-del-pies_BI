@@ -12,7 +12,7 @@ function ListaModoPagos({ rol }) {
   });
 
   const loadModoPagos = () => {
-    fetch('http://localhost:5000/readmodopagos')
+    fetch('http://localhost:5000/crud/readmodopagos')
       .then((response) => response.json())
       .then((data) => setModoPagos(data))
       .catch((error) => console.error('Error al obtener los modos de pago:', error));

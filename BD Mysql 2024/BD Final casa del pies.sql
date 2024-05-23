@@ -66,7 +66,7 @@ CREATE TABLE Productos (
 CREATE TABLE DetalleVenta (
   id_detalleVenta Int NOT NULL PRIMARY KEY AUTO_INCREMENT,
   cod_Venta Int,
-  cantidad Int,
+  cantidadProducto Int,
   id_Producto Int,
   PrecioUnitario Int,
   TotalDetalle int
@@ -76,14 +76,12 @@ CREATE TABLE Ventas (
   cod_Venta Int NOT NULL PRIMARY KEY AUTO_INCREMENT,
   id_Cliente Int,
   id_Vendedor Int,
-  cantidadProducto Int,
   id_ModoPago Int,
   fecha Date,
   Estado Varchar(50),
   TipoVentas Varchar(20),
-  Direccion_Envio Varchar(50),
-  total_Venta Int
-  
+  Direccion_Envio Varchar(50)
+
 );
 
  CREATE TABLE bitacora (

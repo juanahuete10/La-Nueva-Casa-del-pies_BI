@@ -499,10 +499,73 @@
       </attribute>
     </attributes>
   </connection>
+  <connection>
+    <name>Conexion_ventas_Dim</name>
+    <server>localhost</server>
+    <type>MYSQL</type>
+    <access>Native</access>
+    <database>hec_dim</database>
+    <port>3306</port>
+    <username>root</username>
+    <password>Encrypted 2be98afc86aa7f2a9b20abf7c8cc2fd89</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.defaultFetchSize</code>
+        <attribute>500</attribute>
+      </attribute>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.useCursorFetch</code>
+        <attribute>true</attribute>
+      </attribute>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_UPPERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>IS_CLUSTERED</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>PORT_NUMBER</code>
+        <attribute>3306</attribute>
+      </attribute>
+      <attribute>
+        <code>PRESERVE_RESERVED_WORD_CASE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>QUOTE_ALL_FIELDS</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>STREAM_RESULTS</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_TIMESTAMP_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>USE_POOLING</code>
+        <attribute>N</attribute>
+      </attribute>
+    </attributes>
+  </connection>
   <order>
     <hop>
       <from>Carga_Ventas</from>
-      <to>Table output</to>
+      <to>Carga_Dim_Ventas</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -529,16 +592,16 @@
   v.id_ModoPago,
   v.TipoVentas,
   v.Direccion_Envio,
- CONCAT(
-        YEAR(v.fecha), 
-        LPAD(MONTH(v.fecha), 2, '0'), 
-        LPAD(DAY(v.fecha), 2, '0')
-    ) AS fecha, 
-  v.Total_Venta
+  CONCAT(
+      YEAR(v.fecha), 
+      LPAD(MONTH(v.fecha), 2, '0'), 
+      LPAD(DAY(v.fecha), 2, '0')
+  ) AS fecha
 FROM 
-Ventas v
+  Ventas v
 INNER JOIN clientes C ON v.id_Cliente = C.id_Cliente
-INNER JOIN detalleventa DV ON v.cod_Venta = DV.cod_Venta;</sql>
+INNER JOIN detalleventa DV ON v.cod_Venta = DV.cod_Venta;
+</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -799,29 +862,6 @@ INNER JOIN detalleventa DV ON v.cod_Venta = DV.cod_Venta;</sql>
         <date_format_timezone>America/Regina</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
-      <value-meta>
-        <type>Integer</type>
-        <storagetype>normal</storagetype>
-        <name>Total_Venta</name>
-        <length>9</length>
-        <precision>0</precision>
-        <origin>Carga_Ventas</origin>
-        <comments>Total_Venta</comments>
-        <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_ES</date_format_locale>
-        <date_format_timezone>America/Regina</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
     </row-meta>
     <attributes/>
     <cluster_schema/>
@@ -838,7 +878,7 @@ INNER JOIN detalleventa DV ON v.cod_Venta = DV.cod_Venta;</sql>
     </GUI>
   </step>
   <step>
-    <name>Table output</name>
+    <name>Carga_Dim_Ventas</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -848,7 +888,7 @@ INNER JOIN detalleventa DV ON v.cod_Venta = DV.cod_Venta;</sql>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>Conexion_Ventas</connection>
+    <connection>Conexion_ventas_Dim</connection>
     <schema>hec_dim</schema>
     <table>h_ventas</table>
     <commit>1000</commit>

@@ -28,15 +28,14 @@ CREATE TABLE h_Ventas (
   id_hv Int NOT NULL PRIMARY KEY, 
   cod_Venta Int , 
   id_Cliente Int,
-  id_Producto Int,
+  id_producto Int,
   id_Vendedor Int,
   id_tiempo Int,
   fecha Date,
   Estado Varchar(20),
   TipoVentas Varchar(20),
   Direccion_Envio Varchar(100),
-  precio_Unit Int,
-  total_Venta Int
+  precio_Unit Int
  );
 
 CREATE TABLE d_Producto (

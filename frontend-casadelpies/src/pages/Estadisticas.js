@@ -7,8 +7,6 @@ import '../App.css';
 import Footer from '../components/Footer';
 import html2canvas from 'html2canvas';
 
-
-
 function Estadisticas({ rol }) { 
   const [productos, setProductos] = useState([]);
   const [myChart, setMyChart] = useState(null);
@@ -174,6 +172,9 @@ const generarReporteAlmacenImg = async () => {
   }
 };
 
+const imprimirEstadisticas = () => {
+  console.log("Imprimiendo estadísticas...");
+};
 
   return(
     <div>
@@ -228,6 +229,28 @@ const generarReporteAlmacenImg = async () => {
         </Card.Body>
       </Card>
     </Col>
+
+    <Row className="g-3">
+
+    <Col sm="12" md="12" lg="12" className="d-flex justify-content-center align-items-center">
+            <Card style={{ width: 'auto' }}>
+              <Card.Body className="text-center">
+                <Card.Title>Estado del almacen</Card.Title>
+                <iframe 
+                  title="REPORTE KARDEX" 
+                  width="1024" 
+                  height="804" 
+                  src="https://app.powerbi.com/view?r=eyJrIjoiYzJhY2RhOTEtMGIzNy00ZjE2LWFlZGYtZTVmOThjNjY0Yzk2IiwidCI6ImU0NzY0NmZlLWRhMjctNDUxOC04NDM2LTVmOGIxNThiYTEyNyIsImMiOjR9" 
+                  allowFullScreen="true">
+                </iframe>
+                <Button onClick={imprimirEstadisticas} className="mt-3">
+                  Generar reporte con imagen
+                </Button>
+              </Card.Body>
+            </Card>
+          </Col>
+
+          </Row>
 
         </Row>
       </Container>

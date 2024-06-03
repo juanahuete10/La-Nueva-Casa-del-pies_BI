@@ -570,6 +570,50 @@
     </hop>
   </order>
   <step>
+    <name>Carga_Dim_Ventas</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Conexion_ventas_Dim</connection>
+    <schema>hec_dim</schema>
+    <table>h_ventas</table>
+    <commit>1000</commit>
+    <truncate>Y</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>N</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>256</xloc>
+      <yloc>32</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
     <name>Carga_Ventas</name>
     <type>TableInput</type>
     <description/>
@@ -582,9 +626,9 @@
     </partitioning>
     <connection>Conexion_Ventas</connection>
     <sql>SELECT 
-  DV.cod_Venta AS id_hv,  
+  v.cod_Venta AS id_hv,  
   v.id_Cliente,
-  DV.id_producto,
+  DV.id_Producto AS id_producto,
   v.id_Vendedor, 
   v.cod_Venta,
   v.Estado,
@@ -592,15 +636,12 @@
   v.id_ModoPago,
   v.TipoVentas,
   v.Direccion_Envio,
-  CONCAT(
-      YEAR(v.fecha), 
-      LPAD(MONTH(v.fecha), 2, '0'), 
-      LPAD(DAY(v.fecha), 2, '0')
-  ) AS fecha
+  DATE_FORMAT(v.fecha, '%Y%m%d') AS id_tiempo
 FROM 
   Ventas v
-INNER JOIN clientes C ON v.id_Cliente = C.id_Cliente
-INNER JOIN detalleventa DV ON v.cod_Venta = DV.cod_Venta;
+INNER JOIN Clientes C ON v.id_Cliente = C.id_Cliente
+INNER JOIN DetalleVenta DV ON v.cod_Venta = DV.cod_Venta;
+
 </sql>
     <limit>0</limit>
     <lookup/>
@@ -842,11 +883,11 @@ INNER JOIN detalleventa DV ON v.cod_Venta = DV.cod_Venta;
       <value-meta>
         <type>String</type>
         <storagetype>normal</storagetype>
-        <name>fecha</name>
-        <length>9</length>
+        <name>id_tiempo</name>
+        <length>8</length>
         <precision>-1</precision>
         <origin>Carga_Ventas</origin>
-        <comments>fecha</comments>
+        <comments>id_tiempo</comments>
         <conversion_Mask/>
         <decimal_symbol>,</decimal_symbol>
         <grouping_symbol>.</grouping_symbol>
@@ -873,50 +914,6 @@ INNER JOIN detalleventa DV ON v.cod_Venta = DV.cod_Venta;
     </remotesteps>
     <GUI>
       <xloc>64</xloc>
-      <yloc>32</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Carga_Dim_Ventas</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>Conexion_ventas_Dim</connection>
-    <schema>hec_dim</schema>
-    <table>h_ventas</table>
-    <commit>1000</commit>
-    <truncate>Y</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>N</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>256</xloc>
       <yloc>32</yloc>
       <draw>Y</draw>
     </GUI>

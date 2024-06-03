@@ -13,7 +13,7 @@ module.exports = (db) => {
       if (err) {
         console.error('Error al leer registros:', err);
         res.status(500).json({ error: 'Error al leer registros'
-       });
+        });
       } else {
         // Devolver los registros en formato JSON como respuesta
         res.status(200).json(result);

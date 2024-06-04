@@ -35,7 +35,9 @@ CREATE TABLE h_Ventas (
   Estado Varchar(20),
   TipoVentas Varchar(20),
   Direccion_Envio Varchar(100),
-  precio_Unit Int
+  precio_Unit Int,
+  cantidadProducto Int,
+  TotalVenta int
  );
 
 CREATE TABLE d_Producto (
@@ -61,8 +63,8 @@ FOREIGN KEY (id_tiempo)
 REFERENCES d_tiempo(id_tiempo);
 
 ALTER TABLE h_Ventas
-ADD COLUMN id_ModoPago INT,
-ADD CONSTRAINT fk_ModoPago FOREIGN KEY (id_ModoPago) 
+ADD CONSTRAINT fk_ModoPago
+FOREIGN KEY (id_ModoPago) 
 REFERENCES d_ModoPagos(id_ModoPago);
 
 ALTER TABLE h_Ventas

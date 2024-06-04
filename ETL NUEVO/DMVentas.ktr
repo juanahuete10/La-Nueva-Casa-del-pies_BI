@@ -626,7 +626,7 @@
     </partitioning>
     <connection>Conexion_Ventas</connection>
     <sql>SELECT 
-  v.cod_Venta AS id_hv,  
+  DV.id_detalleVenta AS id_hv,  
   v.id_Cliente,
   DV.id_Producto AS id_producto,
   v.id_Vendedor, 
@@ -636,11 +636,15 @@
   v.id_ModoPago,
   v.TipoVentas,
   v.Direccion_Envio,
-  DATE_FORMAT(v.fecha, '%Y%m%d') AS id_tiempo
+  DATE_FORMAT(v.fecha, '%Y%m%d') AS id_tiempo,
+DV.CantidadProducto,
+(DV.PrecioUnitario * DV.CantidadProducto) AS TotalVenta
+ 
 FROM 
   Ventas v
 INNER JOIN Clientes C ON v.id_Cliente = C.id_Cliente
 INNER JOIN DetalleVenta DV ON v.cod_Venta = DV.cod_Venta;
+
 
 </sql>
     <limit>0</limit>
@@ -889,6 +893,52 @@ INNER JOIN DetalleVenta DV ON v.cod_Venta = DV.cod_Venta;
         <origin>Carga_Ventas</origin>
         <comments>id_tiempo</comments>
         <conversion_Mask/>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_ES</date_format_locale>
+        <date_format_timezone>America/Regina</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Integer</type>
+        <storagetype>normal</storagetype>
+        <name>CantidadProducto</name>
+        <length>9</length>
+        <precision>0</precision>
+        <origin>Carga_Ventas</origin>
+        <comments>CantidadProducto</comments>
+        <conversion_Mask>####0;-####0</conversion_Mask>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_ES</date_format_locale>
+        <date_format_timezone>America/Regina</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Integer</type>
+        <storagetype>normal</storagetype>
+        <name>TotalVenta</name>
+        <length>15</length>
+        <precision>0</precision>
+        <origin>Carga_Ventas</origin>
+        <comments>TotalVenta</comments>
+        <conversion_Mask>####0;-####0</conversion_Mask>
         <decimal_symbol>,</decimal_symbol>
         <grouping_symbol>.</grouping_symbol>
         <currency_symbol/>

@@ -106,12 +106,7 @@ function Header({ rol }) {
                       <Link to="/ListaProducto" className="link-unstyled">Listar Producto</Link>
                     </NavDropdown.Item>
 
-                    <NavDropdown.Item>
-                      <Link to="/Estadisticas" className="link-unstyled">Estadística</Link>
-                    </NavDropdown.Item>
-                  </NavDropdown>
 
-                  <NavDropdown title="Marcas" id="marcas">
                     <NavDropdown.Item>
                       <Link to="/marcas" className="link-unstyled">Registrar Marcas</Link>
                     </NavDropdown.Item>
@@ -121,22 +116,26 @@ function Header({ rol }) {
                     </NavDropdown.Item>
 
                     <NavDropdown.Item>
-                      <Link to="/EstadisticasMarcas" className="link-unstyled">Estadística Marcas</Link>
-                    </NavDropdown.Item>
-
-                  </NavDropdown>
-
-                  <NavDropdown title="Categorias" id="categorias">
-                    <NavDropdown.Item>
                       <Link to="/categorias" className="link-unstyled">Registrar Categorias</Link>
                     </NavDropdown.Item>
 
                     <NavDropdown.Item>
                       <Link to="/ListaCategoria" className="link-unstyled">Listar Categorias</Link>
                     </NavDropdown.Item>
+                    
                   </NavDropdown>
 
-                 
+                  <NavDropdown title="Estadísticas" id="estadisticas">
+
+                    <NavDropdown.Item>
+                      <Link to="/Estadisticas" className="link-unstyled">Dashboard BI</Link>
+                    </NavDropdown.Item>
+
+                    <NavDropdown.Item>
+                      <Link to="/Reportes" className="link-unstyled">Reportes</Link>
+                    </NavDropdown.Item>
+
+                  </NavDropdown>  
 
                   <NavDropdown title="Descuentos" id="descuentos">
                     <NavDropdown.Item>

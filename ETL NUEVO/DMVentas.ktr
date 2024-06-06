@@ -628,7 +628,7 @@
     <sql>SELECT 
   DV.id_detalleVenta AS id_hv,  
   v.id_Cliente,
-  DV.id_Producto AS id_producto,
+  DV.id_Producto AS id_Producto,
   v.id_Vendedor, 
   v.cod_Venta,
   v.Estado,
@@ -703,11 +703,11 @@ INNER JOIN DetalleVenta DV ON v.cod_Venta = DV.cod_Venta;
       <value-meta>
         <type>Integer</type>
         <storagetype>normal</storagetype>
-        <name>id_producto</name>
+        <name>id_Producto</name>
         <length>9</length>
         <precision>0</precision>
         <origin>Carga_Ventas</origin>
-        <comments>id_producto</comments>
+        <comments>id_Producto</comments>
         <conversion_Mask>####0;-####0</conversion_Mask>
         <decimal_symbol>,</decimal_symbol>
         <grouping_symbol>.</grouping_symbol>

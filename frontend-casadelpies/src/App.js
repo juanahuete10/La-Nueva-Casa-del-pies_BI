@@ -24,6 +24,7 @@ import Login from './pages/Login';
 import Galeria from './pages/Galeria';
 import Estadisticas from './pages/Estadisticas';
 import EstadisticasMarcas from './pages/EstadisticaMarcas';
+import Reportes from './pages/Reportes';
 import SinAcceso from './pages/SinAcceso';
 
 
@@ -69,6 +70,7 @@ function App() {
         <Route path="/galeria" element={userRol ? <Galeria rol={userRol} /> : <Navigate to="sinacceso"/>} />
         <Route path="/Estadisticas" element={userRol ? <Estadisticas rol={userRol} /> : <Navigate to="sinacceso"/>} />
         <Route path="/EstadisticasMarcas" element={userRol ? <EstadisticasMarcas rol={userRol} /> : <Navigate to="sinacceso" />} />
+        <Route path="/Reportes" element={userRol ? <Reportes rol={userRol} /> : <Navigate to="sinacceso" />} />
         <Route path="/sinacceso" element={<SinAcceso />} />
   
       </Routes>

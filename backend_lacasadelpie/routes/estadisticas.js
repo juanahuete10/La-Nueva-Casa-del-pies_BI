@@ -4,13 +4,22 @@ const router = express.Router();
 module.exports = (db) => {
 
   // Total de ventas realizadas
-  router.get('/ventas', (req, res) => {
-    const sql = `SELECT COUNT(*) AS Total_Ventas FROM h_Ventas;`;
+  router.get('/ventaspormarca', (req, res) => {
+    const sql = `
+      SELECT 
+          p.marca,
+          COUNT(h.id_hv) AS cantidad_ventas
+      FROM 
+          h_Ventas h
+      JOIN 
+          d_Producto p ON h.id_Producto = p.id_Producto
+      GROUP BY 
+        p.marca;`;
 
     db.query(sql, (err, result) => {
       if (err) {
-        console.error('Error al obtener ventas realizadas:', err);
-        res.status(500).json({ error: 'Error al obtener ventas realizadas' });
+        console.error('Error al obtener ventas por marca:', err);
+        res.status(500).json({ error: 'Error al obtener ventas por marca' });
       } else {
         res.status(200).json(result);
       }
@@ -20,10 +29,16 @@ module.exports = (db) => {
   // Total de ventas por vendedor
   router.get('/vendedores', (req, res) => {
     const sql =
-    `SELECT CONCAT(c.nombre, ' ', c.apellido) AS Nombre_Cliente, COUNT(*) AS Total_Ventas
-    FROM h_Ventas h
-    INNER JOIN d_Clientes c ON h.id_Cliente = c.id_Cliente
-    GROUP BY Nombre_Cliente;`;
+    `SELECT 
+        v.nombre,
+        v.apellido,
+        COUNT(h.id_hv) AS cantidad_ventas
+    FROM 
+        h_Ventas h
+    JOIN 
+        d_Vendedor v ON h.id_Vendedor = v.id_Vendedor
+    GROUP BY 
+        v.nombre, v.apellido;`;
 
     db.query(sql, (err, result) => {
       if (err) {

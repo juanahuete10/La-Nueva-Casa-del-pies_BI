@@ -28,7 +28,7 @@ CREATE TABLE h_Ventas (
   id_hv Int NOT NULL PRIMARY KEY, 
   cod_Venta Int , 
   id_Cliente Int,
-  id_producto Int,
+  id_Producto Int,
   id_Vendedor Int,
   id_tiempo Int,
   id_ModoPago Int,

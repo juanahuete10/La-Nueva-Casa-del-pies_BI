@@ -19,7 +19,7 @@ function Estadisticas({ rol }) {
                   title="REPORTE KARDEX" 
                   width="1024" 
                   height="804" 
-                  src="https://app.powerbi.com/view?r=eyJrIjoiYzJhY2RhOTEtMGIzNy00ZjE2LWFlZGYtZTVmOThjNjY0Yzk2IiwidCI6ImU0NzY0NmZlLWRhMjctNDUxOC04NDM2LTVmOGIxNThiYTEyNyIsImMiOjR9" 
+                  src="https://app.powerbi.com/view?r=eyJrIjoiOWU2ZTMzYjgtNjI2MS00MDgzLTk1MzUtZDE2MTNmMDYxYjQ3IiwidCI6ImU0NzY0NmZlLWRhMjctNDUxOC04NDM2LTVmOGIxNThiYTEyNyIsImMiOjR9" 
                   allowFullScreen="true">
                 </iframe>
               </Card.Body>

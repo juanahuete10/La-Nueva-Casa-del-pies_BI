@@ -2,7 +2,6 @@ import React from 'react';
 import Header from '../components/Header'; 
 import { Row, Col, Card, Container } from 'react-bootstrap';  
 import '../App.css';  
-import Footer from '../components/Footer';
 
 function Estadisticas({ rol }) { 
 
@@ -29,7 +28,6 @@ function Estadisticas({ rol }) {
         </Row>
       </Container>
 
-      <Footer/>
     </div>
   );
 }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Row, Col, Container, Card, Badge, Form, FloatingLabel } from 'react-bootstrap';
 import Header from '../components/Header';
 import { FaCartPlus } from "react-icons/fa6";
+import Footer from '../components/Footer';
 import '../App.css';
 
 function Galeria({ rol }) {
@@ -81,6 +82,9 @@ function Galeria({ rol }) {
           ))}
         </Row>
       </Container>
+
+      <Footer/>
+
     </div>
   );
 }

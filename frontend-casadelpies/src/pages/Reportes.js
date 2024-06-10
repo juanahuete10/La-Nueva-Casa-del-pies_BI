@@ -4,7 +4,6 @@ import { Button, Row, Col, Card, Container } from 'react-bootstrap';
 import jsPDF from 'jspdf';  
 import Chart from 'chart.js/auto';
 import '../App.css';  
-import Footer from '../components/Footer';
 import html2canvas from 'html2canvas';
 
 function Reportes({ rol }) { 
@@ -801,7 +800,7 @@ function Reportes({ rol }) {
       .then((response) => response.json())  
       .then((productos) => {
         const doc = new jsPDF();  
-        let y = 15;
+        let y = 20;
 
         doc.text("Reporte de Estado de Almacén", 20, 10);
 
@@ -822,7 +821,7 @@ function Reportes({ rol }) {
       .catch((error) => console.error('Error al obtener los productos:', error)); 
   };
 
-// Definición de la función generarReporteAlmacenImg como una función asíncrona
+// Definición de la función generarReporteAlmacenImg como una función asíncrona-----------------------------------
 const generarReporteAlmacenImg = async () => {
   try {
   
@@ -832,9 +831,9 @@ const generarReporteAlmacenImg = async () => {
    
     const imgData = canvas.toDataURL('image/png');
     
-    pdf.text("Reporte de Estado de Almacén", 20, 10);
+    pdf.text("Reporte de Estado de Almacén", 66, 10);
 
-    pdf.addImage(imgData, 'PNG', 10, 20, 100, 100);
+    pdf.addImage(imgData, 'PNG', 54, 20, 100, 100);
    
     pdf.save("reporte_almacen_con_grafico.pdf");
   } catch (error) {
@@ -842,6 +841,51 @@ const generarReporteAlmacenImg = async () => {
     console.error('Error al generar el reporte con imagen:', error);
   }
 };
+
+//----------------------------------------------------------------------------------------------------------------
+
+// Codigos para generar reportes
+const generarReporteCategorias = () => {
+  fetch('http://localhost:5000/crud/productosPorCategoria') 
+    .then((response) => response.json())  
+    .then((productos) => {
+      const doc = new jsPDF();  
+      let y = 20;
+
+      doc.text("Reporte de Productos por Categoría", 20, 10);
+
+      productos.forEach((producto) => {
+        doc.text(`Nombre_C: ${producto.nombre_C}`, 20, y);
+        doc.text(`CantidadProductos: ${producto.CantidadProductos}`, 20, y + 10);
+
+        y += 40; 
+        if (y >= 280) {  
+          doc.addPage();
+          y = 15;
+        }
+      });
+
+      doc.save("reporte_productos_por_categoria.pdf"); 
+    })
+    .catch((error) => console.error('Error al obtener los productos por categoría:', error)); 
+};
+
+// Definición de la función generarReporteCategoriasImg como una función asíncrona
+const generarReporteCategoriasImg = async () => {
+  try {
+    const canvas = await html2canvas(document.getElementById('myCategories'));
+    const pdf = new jsPDF();
+    const imgData = canvas.toDataURL('image/png');
+    
+    pdf.text("Reporte de Productos por Categoría", 60, 10);
+    pdf.addImage(imgData, 'PNG', 54, 20, 100, 100);
+    pdf.save("reporte_productos_por_categoria_con_grafico.pdf");
+  } catch (error) {
+    console.error('Error al generar el reporte con imagen:', error);
+  }
+};
+
+//----------------------------------------------------------------------------------------------------------------
 
 const imprimirEstadisticas = () => {
   console.log("Imprimiendo estadísticas...");
@@ -1042,30 +1086,18 @@ const imprimirEstadisticas = () => {
             <Card>
               <Card.Body>
                 <Card.Title>Estado del almacen</Card.Title>
-                <canvas id="myChart"  height="300"></canvas>
+                <canvas id="myChart" height="300"></canvas>
               </Card.Body>
-
               <Card.Body>
-                <Button onClick={generarReporteAlmacen}>
-                  Generar reporte
-                </Button>
+                <div style={{ display: 'flex', gap: '10px' }}>
+                  <Button onClick={generarReporteAlmacen}>
+                    Generar reporte
+                  </Button>
+                  <Button onClick={generarReporteAlmacenImg}>
+                    Generar reporte con imagen
+                  </Button>
+                </div>
               </Card.Body>
-
-            </Card>
-          </Col>
-
-          <Col sm="6" md="6" lg="4" className="mb-4">
-            <Card>
-              <Card.Body>
-                <Card.Title>Estado del almacen</Card.Title>
-              </Card.Body>
-
-              <Card.Body>
-                <Button onClick={generarReporteAlmacenImg}>
-                  Generar reporte con imagen
-                </Button>
-              </Card.Body>
-
             </Card>
           </Col>
 
@@ -1075,19 +1107,22 @@ const imprimirEstadisticas = () => {
                 <Card.Title>Productos por Categoría</Card.Title>
                 <canvas id="myCategories" height="120"></canvas>
               </Card.Body>
-
-                <Card.Body>
-                  <Button onClick={generarReporteAlmacen}>
-                  Generar PDF
-                </Button>
+              <Card.Body>
+                <div style={{ display: 'flex', gap: '10px' }}>
+                  <Button onClick={generarReporteCategorias}>
+                    Generar PDF
+                  </Button>
+                  <Button onClick={generarReporteCategoriasImg}>
+                    Generar reporte con imagen
+                  </Button>
+                </div>
               </Card.Body>
             </Card>
           </Col>
 
+
         </Row>
       </Container>
-
-      <Footer/>
 
     </div>
   );

@@ -887,6 +887,549 @@ const generarReporteCategoriasImg = async () => {
 
 //----------------------------------------------------------------------------------------------------------------
 
+// Codigos para generar reportes
+const generarReporteVendedores = () => {
+  fetch('http://localhost:5000/Estadisticas/vendedores') 
+    .then((response) => response.json())  
+    .then((vendedores) => {
+      const doc = new jsPDF();  
+      let y = 20;
+
+      doc.text("Reporte de Ventas por Vendedor", 20, 10);
+
+      vendedores.forEach((vendedor) => {
+        doc.text(`Nombre: ${vendedor.nombre}`, 20, y);
+        doc.text(`Apellido: ${vendedor.apellido}`, 20, y + 10);
+        doc.text(`Cantidad de Ventas: ${vendedor.cantidad_ventas}`, 20, y + 20);
+
+        y += 50; 
+        if (y >= 280) {  
+          doc.addPage();
+          y = 20;
+        }
+      });
+
+      doc.save("reporte_ventas_por_vendedor.pdf"); 
+    })
+    .catch((error) => console.error('Error al obtener las ventas por vendedor:', error)); 
+};
+
+// Definición de la función generarReporteCategoriasImg como una función asíncrona
+
+const generarReporteVendedoresImg = async () => {
+  try {
+    const canvas = await html2canvas(document.getElementById('graficoVendedores'));
+    const pdf = new jsPDF();
+    const imgData = canvas.toDataURL('image/png');
+    
+    pdf.text("Reporte de Ventas por Vendedor", 60, 10);
+    pdf.addImage(imgData, 'PNG', 54, 20, 100, 100); 
+    pdf.save("reporte_ventas_por_vendedor_con_grafico.pdf");
+  } catch (error) {
+    console.error('Error al generar el reporte con imagen:', error);
+  }
+};
+
+//----------------------------------------------------------------------------------------------------------------
+
+// Codigos para generar reportes
+
+const generarReporteMarcas = () => {
+  fetch('http://localhost:5000/Estadisticas/ventaspormarca')
+    .then((response) => response.json())
+    .then((marcas) => {
+      const doc = new jsPDF();
+      let y = 20;
+
+      doc.text("Reporte de Ventas por Marca", 20, 10);
+
+      marcas.forEach((marca) => {
+        doc.text(`Marca: ${marca.marca}`, 20, y);
+        doc.text(`Cantidad de Ventas: ${marca.cantidad_ventas}`, 20, y + 10);
+
+        y += 40;
+        if (y >= 280) {
+          doc.addPage();
+          y = 20;
+        }
+      });
+
+      doc.save("reporte_ventas_por_marca.pdf");
+    })
+    .catch((error) => console.error('Error al obtener las ventas por marca:', error));
+};
+
+// Definición de la función generarReporteCategoriasImg como una función asíncrona
+
+const generarReporteMarcasImg = async () => {
+  try {
+    const canvas = await html2canvas(document.getElementById('graficoVentasPorMarca'));
+    const pdf = new jsPDF();
+    const imgData = canvas.toDataURL('image/png');
+    
+    pdf.text("Reporte de Ventas por Marca", 65, 10);
+    pdf.addImage(imgData, 'PNG', 54, 20, 100, 100); 
+    pdf.save("reporte_ventas_por_marca_con_grafico.pdf");
+  } catch (error) {
+    console.error('Error al generar el reporte con imagen:', error);
+  }
+};
+
+//----------------------------------------------------------------------------------------------------------------
+
+// Codigos para generar reportes
+
+const generarReporteClientes = () => {
+  fetch('http://localhost:5000/Estadisticas/ventasporcliente')
+    .then((response) => response.json())
+    .then((clientes) => {
+      const doc = new jsPDF();
+      let y = 20;
+
+      doc.text("Reporte de Ventas por Cliente", 20, 10);
+
+      clientes.forEach((cliente) => {
+        doc.text(`Nombre del Cliente: ${cliente.Nombre_Cliente}`, 20, y);
+        doc.text(`Total de Ventas: ${cliente.Total_Ventas}`, 20, y + 10);
+
+        y += 40;
+        if (y >= 280) {
+          doc.addPage();
+          y = 20;
+        }
+      });
+
+      doc.save("reporte_ventas_por_cliente.pdf");
+    })
+    .catch((error) => console.error('Error al obtener las ventas por cliente:', error));
+};
+
+// Definición de la función generarReporteCategoriasImg como una función asíncrona
+
+const generarReporteClientesImg = async () => {
+  try {
+    const canvas = await html2canvas(document.getElementById('graficoVentasPorCliente'));
+    const pdf = new jsPDF();
+    const imgData = canvas.toDataURL('image/png');
+    
+    pdf.text("Reporte de Ventas por Cliente", 65, 10);
+    pdf.addImage(imgData, 'PNG', 54, 20, 100, 100);
+    pdf.save("reporte_ventas_por_cliente_con_grafico.pdf");
+  } catch (error) {
+    console.error('Error al generar el reporte con imagen:', error);
+  }
+};
+
+//----------------------------------------------------------------------------------------------------------------
+
+// Codigos para generar reportes
+
+const generarReporteProductos = () => {
+  fetch('http://localhost:5000/Estadisticas/ventasporproducto')
+    .then((response) => response.json())
+    .then((productos) => {
+      const doc = new jsPDF();
+      let y = 20;
+
+      doc.text("Reporte de Ventas por Producto", 20, 10);
+
+      productos.forEach((producto) => {
+        doc.text(`Producto: ${producto.Producto}`, 20, y);
+        doc.text(`Total de Ventas: ${producto.Total_Ventas}`, 20, y + 10);
+
+        y += 40;
+        if (y >= 280) {
+          doc.addPage();
+          y = 20;
+        }
+      });
+
+      doc.save("reporte_ventas_por_producto.pdf");
+    })
+    .catch((error) => console.error('Error al obtener las ventas por producto:', error));
+};
+
+// Definición de la función generarReporteCategoriasImg como una función asíncrona
+
+const generarReporteProductosImg = async () => {
+  try {
+    const canvas = await html2canvas(document.getElementById('graficoVentasPorProducto'));
+    const pdf = new jsPDF();
+    const imgData = canvas.toDataURL('image/png');
+    
+    pdf.text("Reporte de Ventas por Producto", 65, 10);
+    pdf.addImage(imgData, 'PNG', 54, 20, 100, 100);
+    pdf.save("reporte_ventas_por_producto_con_grafico.pdf");
+  } catch (error) {
+    console.error('Error al generar el reporte con imagen:', error);
+  }
+};
+
+//----------------------------------------------------------------------------------------------------------------
+
+// Codigos para generar reportes
+
+const generarReporteDiaSemana = () => {
+  fetch('http://localhost:5000/Estadisticas/ventaspordiasemana')
+    .then((response) => response.json())
+    .then((dias) => {
+      const doc = new jsPDF();
+      let y = 20;
+
+      doc.text("Reporte de Ventas por Día de la Semana", 20, 10);
+
+      dias.forEach((dia) => {
+        doc.text(`Día de la Semana: ${dia.Dia_Semana}`, 20, y);
+        doc.text(`Total de Ventas: ${dia.Total_Ventas}`, 20, y + 10);
+
+        y += 40;
+        if (y >= 280) {
+          doc.addPage();
+          y = 20;
+        }
+      });
+
+      doc.save("reporte_ventas_por_dia_de_la_semana.pdf");
+    })
+    .catch((error) => console.error('Error al obtener las ventas por día de la semana:', error));
+};
+
+// Definición de la función generarReporteCategoriasImg como una función asíncrona
+
+const generarReporteDiaSemanaImg = async () => {
+  try {
+    const canvas = await html2canvas(document.getElementById('graficoVentasPorDiaSemana'));
+    const pdf = new jsPDF();
+    const imgData = canvas.toDataURL('image/png');
+    
+    pdf.text("Reporte de Ventas por Día de la Semana", 65, 10);
+    pdf.addImage(imgData, 'PNG', 54, 20, 100, 100); 
+    pdf.save("reporte_ventas_por_dia_de_la_semana_con_grafico.pdf");
+  } catch (error) {
+    console.error('Error al generar el reporte con imagen:', error);
+  }
+};
+
+//----------------------------------------------------------------------------------------------------------------
+
+// Codigos para generar reportes
+
+const generarReporteMesAnio = () => {
+  fetch('http://localhost:5000/Estadisticas/ventaspormesyanio')
+    .then((response) => response.json())
+    .then((meses) => {
+      const doc = new jsPDF();
+      let y = 20;
+
+      doc.text("Reporte de Ventas por Mes y Año", 20, 10);
+
+      meses.forEach((mes) => {
+        doc.text(`Año: ${mes.Año}`, 20, y);
+        doc.text(`Mes: ${mes.Mes}`, 20, y + 10);
+        doc.text(`Total de Ventas: ${mes.Total_Ventas}`, 20, y + 20);
+
+        y += 50;
+        if (y >= 280) {
+          doc.addPage();
+          y = 20;
+        }
+      });
+
+      doc.save("reporte_ventas_por_mes_y_anio.pdf");
+    })
+    .catch((error) => console.error('Error al obtener las ventas por mes y año:', error));
+};
+
+// Definición de la función generarReporteCategoriasImg como una función asíncrona
+
+const generarReporteMesAnioImg = async () => {
+  try {
+    const canvas = await html2canvas(document.getElementById('graficoVentasPorMesAnio'));
+    const pdf = new jsPDF();
+    const imgData = canvas.toDataURL('image/png');
+    
+    pdf.text("Reporte de Ventas por Mes y Año", 63, 10);
+    pdf.addImage(imgData, 'PNG', 54, 20, 100, 100); 
+    pdf.save("reporte_ventas_por_mes_y_anio_con_grafico.pdf");
+  } catch (error) {
+    console.error('Error al generar el reporte con imagen:', error);
+  }
+};
+
+//----------------------------------------------------------------------------------------------------------------
+
+// Codigos para generar reportes
+
+const generarReporteVentasPorTipo = () => {
+  fetch('http://localhost:5000/Estadisticas/ventasportipo')
+    .then((response) => response.json())
+    .then((tipos) => {
+      const doc = new jsPDF();
+      let y = 20;
+
+      doc.text("Reporte de Ventas por Tipo", 20, 10);
+
+      tipos.forEach((tipo) => {
+        doc.text(`Tipo de Venta: ${tipo.TipoVentas}`, 20, y);
+        doc.text(`Total de Ventas: ${tipo.Total_Ventas}`, 20, y + 10);
+
+        y += 30;
+        if (y >= 280) {
+          doc.addPage();
+          y = 20;
+        }
+      });
+
+      doc.save("reporte_ventas_por_tipo.pdf");
+    })
+    .catch((error) => console.error('Error al obtener las ventas por tipo:', error));
+};
+
+// Definición de la función generarReporteCategoriasImg como una función asíncrona
+
+const generarReporteVentasPorTipoImg = async () => {
+  try {
+    const canvas = await html2canvas(document.getElementById('graficoVentasPorTipo'));
+    const pdf = new jsPDF();
+    const imgData = canvas.toDataURL('image/png');
+    
+    pdf.text("Reporte de Ventas por Tipo", 70, 10);
+    pdf.addImage(imgData, 'PNG', 54, 20, 100, 100);
+    pdf.save("reporte_ventas_por_tipo_con_grafico.pdf");
+  } catch (error) {
+    console.error('Error al generar el reporte con imagen:', error);
+  }
+};
+
+//----------------------------------------------------------------------------------------------------------------
+
+// Codigos para generar reportes
+
+const generarReporteIngresosAnuales = () => {
+  fetch('http://localhost:5000/Estadisticas/tiempoingresoanualporanio')
+    .then((response) => response.json())
+    .then((ingresos) => {
+      const doc = new jsPDF();
+      let y = 20;
+
+      doc.text("Reporte de Ingresos Anuales por Año", 20, 10);
+
+      ingresos.forEach((ingreso) => {
+        doc.text(`Año: ${ingreso.Año}`, 20, y);
+        doc.text(`Ingresos del Año Actual: ${ingreso.Ingresos_Año_Actual}`, 20, y + 10);
+
+        y += 30;
+        if (y >= 280) {
+          doc.addPage();
+          y = 20;
+        }
+      });
+
+      doc.save("reporte_ingresos_anuales_por_año.pdf");
+    })
+    .catch((error) => console.error('Error al obtener los ingresos anuales por año:', error));
+};
+
+// Definición de la función generarReporteCategoriasImg como una función asíncrona
+
+const generarReporteIngresosAnualesImg = async () => {
+  try {
+    const canvas = await html2canvas(document.getElementById('graficoIngresosAnuales'));
+    const pdf = new jsPDF();
+    const imgData = canvas.toDataURL('image/png');
+    
+    pdf.text("Reporte de Ingresos Anuales por Año", 58, 10);
+    pdf.addImage(imgData, 'PNG', 54, 20, 100, 100);
+    pdf.save("reporte_ingresos_anuales_por_año_con_grafico.pdf");
+  } catch (error) {
+    console.error('Error al generar el reporte con imagen:', error);
+  }
+};
+
+//----------------------------------------------------------------------------------------------------------------
+
+// Codigos para generar reportes
+
+const generarReporteProductosGanancias = () => {
+  fetch('http://localhost:5000/Estadisticas/productosganancias')
+    .then((response) => response.json())
+    .then((productos) => {
+      const doc = new jsPDF();
+      let y = 20;
+
+      doc.text("Reporte de Ganancias por Producto", 20, 10);
+
+      productos.forEach((producto) => {
+        doc.text(`Producto: ${producto.Producto}`, 20, y);
+        doc.text(`Ventas Totales: ${producto.Ventas_Totales}`, 20, y + 10);
+
+        y += 30;
+        if (y >= 280) {
+          doc.addPage();
+          y = 20;
+        }
+      });
+
+      doc.save("reporte_ganancias_por_producto.pdf");
+    })
+    .catch((error) => console.error('Error al obtener las ganancias de los productos:', error));
+};
+
+// Definición de la función generarReporteCategoriasImg como una función asíncrona
+
+const generarReporteProductosGananciasImg = async () => {
+  try {
+    const canvas = await html2canvas(document.getElementById('graficoProductosGanancias'));
+    const pdf = new jsPDF();
+    const imgData = canvas.toDataURL('image/png');
+    
+    pdf.text("Reporte de Ganancias por Producto", 63, 10);
+    pdf.addImage(imgData, 'PNG', 54, 20, 100, 100); 
+    pdf.save("reporte_ganancias_por_producto_con_grafico.pdf");
+  } catch (error) {
+    console.error('Error al generar el reporte con imagen:', error);
+  }
+};
+
+//----------------------------------------------------------------------------------------------------------------
+
+// Codigos para generar reportes
+
+const generarReporteVentasPorCategoria = () => {
+  fetch('http://localhost:5000/Estadisticas/ventasporcategoriaproducto')
+    .then((response) => response.json())
+    .then((categorias) => {
+      const doc = new jsPDF();
+      let y = 20;
+
+      doc.text("Reporte de Ventas por Categoría de Producto", 20, 10);
+
+      categorias.forEach((categoria) => {
+        doc.text(`Categoría: ${categoria.nombre_C}`, 20, y);
+        doc.text(`Ventas Totales: ${categoria.Ventas_Totales}`, 20, y + 10);
+
+        y += 30;
+        if (y >= 280) {
+          doc.addPage();
+          y = 20;
+        }
+      });
+
+      doc.save("reporte_ventas_por_categoria.pdf");
+    })
+    .catch((error) => console.error('Error al obtener las ventas por categoría de producto:', error));
+};
+
+// Definición de la función generarReporteCategoriasImg como una función asíncrona
+
+const generarReporteVentasPorCategoriaImg = async () => {
+  try {
+    const canvas = await html2canvas(document.getElementById('graficoVentasPorCategoriaProducto'));
+    const pdf = new jsPDF();
+    const imgData = canvas.toDataURL('image/png');
+    
+    pdf.text("Reporte de Ventas por Categoría de Producto", 49, 10);
+    pdf.addImage(imgData, 'PNG', 54, 20, 100, 100); // Ajusta las coordenadas y el tamaño de la imagen según tu necesidad
+    pdf.save("reporte_ventas_por_categoria_con_grafico.pdf");
+  } catch (error) {
+    console.error('Error al generar el reporte con imagen:', error);
+  }
+};
+
+//----------------------------------------------------------------------------------------------------------------
+
+// Codigos para generar reportes
+
+const generarReportePromedioVentasPorProducto = () => {
+  fetch('http://localhost:5000/Estadisticas/promedioventasporproducto')
+    .then((response) => response.json())
+    .then((productos) => {
+      const doc = new jsPDF();
+      let y = 20;
+
+      doc.text("Reporte de Promedio de Ventas por Producto", 20, 10);
+
+      productos.forEach((producto) => {
+        doc.text(`Producto: ${producto.Producto}`, 20, y);
+        doc.text(`Promedio de Ventas: ${producto.Promedio_Ventas}`, 20, y + 10);
+
+        y += 30;
+        if (y >= 280) {
+          doc.addPage();
+          y = 20;
+        }
+      });
+
+      doc.save("reporte_promedio_ventas_por_producto.pdf");
+    })
+    .catch((error) => console.error('Error al obtener el promedio de ventas por producto:', error));
+};
+
+// Definición de la función generarReporteCategoriasImg como una función asíncrona
+
+const generarReportePromedioVentasPorProductoImg = async () => {
+  try {
+    const canvas = await html2canvas(document.getElementById('graficoPromedioVentasPorProducto'));
+    const pdf = new jsPDF();
+    const imgData = canvas.toDataURL('image/png');
+    
+    pdf.text("Reporte de Ventas por Vendedor", 65, 10);
+    pdf.addImage(imgData, 'PNG', 54, 20, 100, 100);
+    pdf.save("reporte_ventas_por_vendedor_con_grafico.pdf");
+  } catch (error) {
+    console.error('Error al generar el reporte con imagen:', error);
+  }
+};
+
+
+//----------------------------------------------------------------------------------------------------------------
+
+// Codigos para generar reportes
+
+const generarReporteProductosMasVendidos = () => {
+  fetch('http://localhost:5000/Estadisticas/productosmasvendidos')
+    .then((response) => response.json())
+    .then((productos) => {
+      const doc = new jsPDF();
+      let y = 20;
+
+      doc.text("Reporte de Productos más Vendidos", 20, 10);
+
+      productos.forEach((producto) => {
+        doc.text(`Producto: ${producto.Producto}`, 20, y);
+        doc.text(`Cantidad Total Vendida: ${producto.Cantidad_Total_Vendida}`, 20, y + 10);
+
+        y += 30;
+        if (y >= 280) {
+          doc.addPage();
+          y = 20;
+        }
+      });
+
+      doc.save("reporte_productos_mas_vendidos.pdf");
+    })
+    .catch((error) => console.error('Error al obtener los productos más vendidos:', error));
+};
+
+// Definición de la función generarReporteCategoriasImg como una función asíncrona
+
+const generarReporteProductosMasVendidosImg = async () => {
+  try {
+    const canvas = await html2canvas(document.getElementById('graficoProductosMasVendidos'));
+    const pdf = new jsPDF();
+    const imgData = canvas.toDataURL('image/png');
+    
+    pdf.text("Reporte de Productos más Vendidos", 63, 10);
+    pdf.addImage(imgData, 'PNG', 54, 20, 100, 100); 
+    pdf.save("reporte_ventas_por_vendedor_con_grafico.pdf");
+  } catch (error) {
+    console.error('Error al generar el reporte con imagen:', error);
+  }
+};
+
+
+//----------------------------------------------------------------------------------------------------------------
+
 const imprimirEstadisticas = () => {
   console.log("Imprimiendo estadísticas...");
 };
@@ -907,9 +1450,14 @@ const imprimirEstadisticas = () => {
               </Card.Body>
 
               <Card.Body>
-                <Button onClick={generarReporteAlmacen}>
-                  Generar reporte
-                </Button>
+              <div style={{ display: 'flex', gap: '10px' }}>
+                  <Button onClick={generarReporteVendedores}>
+                    Generar reporte
+                  </Button>
+                  <Button onClick={generarReporteVendedoresImg}>
+                    Generar reporte con imagen
+                  </Button>
+                </div>
               </Card.Body>
 
             </Card>
@@ -923,9 +1471,14 @@ const imprimirEstadisticas = () => {
               </Card.Body>
 
               <Card.Body>
-                <Button onClick={generarReporteAlmacen}>
+              <div style={{ display: 'flex', gap: '10px' }}>
+                <Button onClick={generarReporteMarcas}>
                   Generar reporte
                 </Button>
+                <Button onClick={generarReporteMarcasImg}>
+                  Generar reporte con imagen
+                </Button>
+              </div>
               </Card.Body>
 
             </Card>
@@ -939,9 +1492,14 @@ const imprimirEstadisticas = () => {
               </Card.Body>
 
               <Card.Body>
-                <Button onClick={generarReporteAlmacen}>
+              <div style={{ display: 'flex', gap: '10px' }}>
+                <Button onClick={generarReporteClientes}>
                   Generar reporte
                 </Button>
+                <Button onClick={generarReporteClientesImg}>
+                  Generar reporte con imagen
+                </Button>
+              </div>
               </Card.Body>
 
             </Card>
@@ -955,9 +1513,14 @@ const imprimirEstadisticas = () => {
               </Card.Body>
 
               <Card.Body>
-                <Button onClick={generarReporteAlmacen}>
+              <div style={{ display: 'flex', gap: '10px' }}>
+                <Button onClick={generarReporteProductos}>
                   Generar reporte
                 </Button>
+                <Button onClick={generarReporteProductosImg}>
+                  Generar reporte con imagen
+                </Button>
+              </div>
               </Card.Body>
 
             </Card>
@@ -969,10 +1532,16 @@ const imprimirEstadisticas = () => {
               <Card.Title>Ventas totales por día de la semana</Card.Title>
               <canvas id="graficoVentasPorDiaSemana" height="300"></canvas>
             </Card.Body>
+
             <Card.Body>
-              <Button onClick={generarReporteAlmacen}>
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <Button onClick={generarReporteDiaSemana}>
                 Generar reporte
               </Button>
+              <Button onClick={generarReporteDiaSemanaImg}>
+                Generar reporte con imagen
+              </Button>
+            </div>
             </Card.Body>
 
           </Card>
@@ -984,10 +1553,16 @@ const imprimirEstadisticas = () => {
               <Card.Title>Ventas totales por mes y año</Card.Title>
               <canvas id="graficoVentasPorMesAnio" height="300"></canvas>
             </Card.Body>
+
             <Card.Body>
-              <Button onClick={generarReporteAlmacen}>
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <Button onClick={generarReporteMesAnio}>
                 Generar reporte
               </Button>
+              <Button onClick={generarReporteMesAnioImg}>
+                Generar reporte con imagen
+              </Button>
+            </div>
             </Card.Body>
             
           </Card>
@@ -999,10 +1574,16 @@ const imprimirEstadisticas = () => {
               <Card.Title>Ventas totales por tipo de venta</Card.Title>
               <canvas id="graficoVentasPorTipo" height="300"></canvas>
             </Card.Body>
+
             <Card.Body>
-              <Button onClick={generarReporteAlmacen}>
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <Button onClick={generarReporteVentasPorTipo}>
                 Generar reporte
               </Button>
+              <Button onClick={generarReporteVentasPorTipoImg}>
+                Generar reporte con imagen
+              </Button>
+            </div>
             </Card.Body>
 
           </Card>
@@ -1014,10 +1595,16 @@ const imprimirEstadisticas = () => {
               <Card.Title>Ingresos anuales por año</Card.Title>
               <canvas id="graficoIngresosAnuales" height="300"></canvas>
             </Card.Body>
+
             <Card.Body>
-              <Button onClick={generarReporteAlmacen}>
-                Generar reporte
-              </Button>
+              <div style={{ display: 'flex', gap: '10px' }}>
+                <Button onClick={generarReporteIngresosAnuales}>
+                  Generar reporte
+                </Button>
+                <Button onClick={generarReporteIngresosAnualesImg}>
+                  Generar reporte con imagen
+                </Button>
+              </div>
             </Card.Body>
 
           </Card>
@@ -1029,10 +1616,16 @@ const imprimirEstadisticas = () => {
                 <Card.Title>Ganancias de los Productos</Card.Title>
                 <canvas id="graficoProductosGanancias" height="300"></canvas>
               </Card.Body>
+
               <Card.Body>
-                <Button onClick={generarReporteAlmacen}>
-                  Generar reporte
-                </Button>
+                <div style={{ display: 'flex', gap: '10px' }}>
+                  <Button onClick={generarReporteProductosGanancias}>
+                    Generar reporte
+                  </Button>
+                  <Button onClick={generarReporteProductosGananciasImg}>
+                    Generar reporte con imagen
+                  </Button>
+                </div>
               </Card.Body>
 
             </Card>
@@ -1044,10 +1637,16 @@ const imprimirEstadisticas = () => {
                 <Card.Title>Ventas totales por Categoría de Producto</Card.Title>
                 <canvas id="graficoVentasPorCategoriaProducto" height="300"></canvas>
               </Card.Body>
+
               <Card.Body>
-                <Button onClick={generarReporteAlmacen}>
-                  Generar reporte
-                </Button>
+                <div style={{ display: 'flex', gap: '10px' }}>
+                  <Button onClick={generarReporteVentasPorCategoria}>
+                    Generar reporte
+                  </Button>
+                  <Button onClick={generarReporteVentasPorCategoriaImg}>
+                    Generar reporte con imagen
+                  </Button>
+                </div>
               </Card.Body>
 
             </Card>
@@ -1059,10 +1658,16 @@ const imprimirEstadisticas = () => {
                 <Card.Title>Promedio de Ventas por Producto</Card.Title>
                 <canvas id="graficoPromedioVentasPorProducto" height="300"></canvas>
               </Card.Body>
+
               <Card.Body>
-                <Button onClick={generarReporteAlmacen}>
-                  Generar reporte
-                </Button>
+                <div style={{ display: 'flex', gap: '10px' }}>
+                  <Button onClick={generarReportePromedioVentasPorProducto}>
+                    Generar reporte
+                  </Button>
+                  <Button onClick={generarReportePromedioVentasPorProductoImg}>
+                    Generar reporte con imagen
+                  </Button>
+                </div>
               </Card.Body>
               
             </Card>
@@ -1074,11 +1679,18 @@ const imprimirEstadisticas = () => {
                 <Card.Title>Productos más Vendidos por Cantidad</Card.Title>
                 <canvas id="graficoProductosMasVendidos" height="300"></canvas>
               </Card.Body>
+
               <Card.Body>
-                <Button onClick={generarReporteAlmacen}>
-                  Generar reporte
-                </Button>
+              <div style={{ display: 'flex', gap: '10px' }}>
+                  <Button onClick={generarReporteProductosMasVendidos}>
+                    Generar reporte
+                  </Button>
+                  <Button onClick={generarReporteProductosMasVendidosImg}>
+                    Generar reporte con imagen
+                  </Button>
+                </div>
               </Card.Body>
+
             </Card>
           </Col>
 
@@ -1088,6 +1700,7 @@ const imprimirEstadisticas = () => {
                 <Card.Title>Estado del almacen</Card.Title>
                 <canvas id="myChart" height="300"></canvas>
               </Card.Body>
+
               <Card.Body>
                 <div style={{ display: 'flex', gap: '10px' }}>
                   <Button onClick={generarReporteAlmacen}>
@@ -1098,6 +1711,7 @@ const imprimirEstadisticas = () => {
                   </Button>
                 </div>
               </Card.Body>
+
             </Card>
           </Col>
 
@@ -1107,16 +1721,18 @@ const imprimirEstadisticas = () => {
                 <Card.Title>Productos por Categoría</Card.Title>
                 <canvas id="myCategories" height="120"></canvas>
               </Card.Body>
+
               <Card.Body>
                 <div style={{ display: 'flex', gap: '10px' }}>
                   <Button onClick={generarReporteCategorias}>
-                    Generar PDF
+                    Generar reporte
                   </Button>
                   <Button onClick={generarReporteCategoriasImg}>
                     Generar reporte con imagen
                   </Button>
                 </div>
               </Card.Body>
+
             </Card>
           </Col>
 

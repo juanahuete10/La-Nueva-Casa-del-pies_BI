@@ -161,34 +161,34 @@ INSERT INTO Productos (id_Categoria, nombre, descripcion, precio, id_Marca, id_P
 -- Insertar 25 ventas
 -- Insertar ventas para 2023
 INSERT INTO Ventas (id_Cliente, id_Vendedor, id_ModoPago, fecha, Estado, TipoVentas, Direccion_Envio) VALUES 
-(1, 1, 1, '2023-01-01', 'Pendiente', 'Online', 'Calle 123, Ciudad A'), 
-(2, 2, 1, '2023-02-03', 'Pendiente', 'Presencial', 'Avenida XYZ, Ciudad B'), 
-(3, 3, 2, '2023-03-05', 'Entregado', 'Teléfono', 'Calle 456, Ciudad C'), 
-(4, 4, 2, '2023-04-07', 'Pendiente', 'Online', 'Calle 789, Ciudad D'), 
-(5, 5, 1, '2023-05-09', 'Pendiente', 'Presencial', 'Avenida LMN, Ciudad E'), 
-(6, 1, 1, '2023-06-11', 'Pendiente', 'Teléfono', 'Calle 012, Ciudad F'), 
-(7, 2, 2, '2023-07-13', 'Entregado', 'Online', 'Avenida UVW, Ciudad G'), 
+(1, 1, 1, '2023-02-01', 'Pendiente', 'Online', 'Calle 123, Ciudad A'), 
+(2, 2, 1, '2023-02-01', 'Pendiente', 'Presencial', 'Avenida XYZ, Ciudad B'), 
+(3, 3, 2, '2023-02-01', 'Entregado', 'Presencial', 'Calle 456, Ciudad C'), 
+(4, 4, 2, '2023-03-07', 'Pendiente', 'Online', 'Calle 789, Ciudad D'), 
+(5, 5, 1, '2023-03-07', 'Pendiente', 'Presencial', 'Avenida LMN, Ciudad E'), 
+(6, 1, 1, '2023-03-07', 'Pendiente', 'Presencial', 'Calle 012, Ciudad F'), 
+(7, 2, 2, '2023-08-15', 'Entregado', 'Online', 'Avenida UVW, Ciudad G'), 
 (8, 3, 2, '2023-08-15', 'Pendiente', 'Presencial', 'Calle 345, Ciudad H'), 
-(9, 4, 1, '2023-09-17', 'Pendiente', 'Teléfono', 'Avenida EFG, Ciudad I'), 
-(10, 5, 1, '2023-10-19', 'Pendiente', 'Online', 'Calle HIJ, Ciudad J');
+(9, 4, 1, '2023-08-15', 'Pendiente', 'Online', 'Avenida EFG, Ciudad I'), 
+(10, 5, 1, '2023-08-15', 'Pendiente', 'Online', 'Calle HIJ, Ciudad J');
 
 -- Insertar ventas para 2024
 INSERT INTO Ventas (id_Cliente, id_Vendedor, id_ModoPago, fecha, Estado, TipoVentas, Direccion_Envio) VALUES 
 (1, 1, 1, '2024-01-01', 'Pendiente', 'Online', 'Calle 123, Ciudad A'), 
-(2, 2, 1, '2024-02-03', 'Pendiente', 'Presencial', 'Avenida XYZ, Ciudad B'), 
-(3, 3, 2, '2024-03-05', 'Entregado', 'Teléfono', 'Calle 456, Ciudad C'), 
-(4, 4, 2, '2024-04-07', 'Pendiente', 'Online', 'Calle 789, Ciudad D'), 
-(5, 5, 1, '2024-05-09', 'Pendiente', 'Presencial', 'Avenida LMN, Ciudad E'), 
-(6, 1, 1, '2024-06-11', 'Pendiente', 'Teléfono', 'Calle 012, Ciudad F'), 
-(7, 2, 2, '2024-07-13', 'Entregado', 'Online', 'Avenida UVW, Ciudad G'), 
-(8, 3, 2, '2024-08-15', 'Pendiente', 'Presencial', 'Calle 345, Ciudad H'), 
-(9, 4, 1, '2024-09-17', 'Pendiente', 'Teléfono', 'Avenida EFG, Ciudad I'), 
-(10, 5, 1, '2024-10-19', 'Pendiente', 'Online', 'Calle HIJ, Ciudad J'), 
-(11, 1, 2, '2024-11-21', 'Pendiente', 'Presencial', 'Avenida KLM, Ciudad K'), 
-(12, 2, 1, '2024-12-23', 'Pendiente', 'Teléfono', 'Calle NOP, Ciudad L'), 
-(13, 3, 1, '2024-01-25', 'Pendiente', 'Online', 'Avenida QRS, Ciudad M'), 
-(14, 4, 2, '2024-02-27', 'Pendiente', 'Presencial', 'Calle TUV, Ciudad N'), 
-(15, 5, 2, '2024-03-29', 'Pendiente', 'Teléfono', 'Avenida WXY, Ciudad O');
+(2, 2, 1, '2024-01-01', 'Pendiente', 'Presencial', 'Avenida XYZ, Ciudad B'), 
+(3, 3, 2, '2024-01-01', 'Entregado', 'Presencial', 'Calle 456, Ciudad C'), 
+(4, 4, 2, '2024-01-01', 'Pendiente', 'Online', 'Calle 789, Ciudad D'), 
+(5, 5, 1, '2024-01-01', 'Pendiente', 'Presencial', 'Avenida LMN, Ciudad E'), 
+(6, 1, 1, '2024-02-11', 'Pendiente', 'Presencial', 'Calle 012, Ciudad F'), 
+(7, 2, 2, '2024-02-11', 'Entregado', 'Online', 'Avenida UVW, Ciudad G'), 
+(8, 3, 2, '2024-02-11', 'Pendiente', 'Presencial', 'Calle 345, Ciudad H'), 
+(9, 4, 1, '2024-02-11', 'Pendiente', 'Presencial', 'Avenida EFG, Ciudad I'), 
+(10, 5, 1, '2024-04-19', 'Pendiente', 'Online', 'Calle HIJ, Ciudad J'), 
+(11, 1, 2, '2024-04-19', 'Pendiente', 'Presencial', 'Avenida KLM, Ciudad K'), 
+(12, 2, 1, '2024-06-23', 'Pendiente', 'Presencial', 'Calle NOP, Ciudad L'), 
+(13, 3, 1, '2024-06-23', 'Pendiente', 'Online', 'Avenida QRS, Ciudad M'), 
+(14, 4, 2, '2024-06-23', 'Pendiente', 'Presencial', 'Calle TUV, Ciudad N'), 
+(15, 5, 2, '2024-06-23', 'Pendiente', 'Presencial', 'Avenida WXY, Ciudad O');
 
 -- Insertar 25 Detalle de ventas
 -- Detalle de ventas para el año 2023

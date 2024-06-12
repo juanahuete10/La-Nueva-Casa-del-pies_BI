@@ -1441,7 +1441,7 @@ const imprimirEstadisticas = () => {
 
         <Row className="espaciado">
 
-          <Col sm="6" md="6" lg="4" className="mb-4">
+          <Col sm="12" md="6" lg="4" className="mb-4">
             <Card>
               <Card.Body>
                 <Card.Title>Ventas totales por vendedor</Card.Title>
@@ -1462,7 +1462,7 @@ const imprimirEstadisticas = () => {
             </Card>
           </Col>
 
-          <Col sm="6" md="6" lg="4" className="mb-4">
+          <Col sm="12" md="6" lg="4" className="mb-4">
             <Card>
               <Card.Body>
                 <Card.Title>Ventas totales por marca</Card.Title>
@@ -1483,7 +1483,7 @@ const imprimirEstadisticas = () => {
             </Card>
           </Col>
 
-          <Col sm="6" md="6" lg="4" className="mb-4">
+          <Col sm="12" md="6" lg="4" className="mb-4">
             <Card>
               <Card.Body>
                 <Card.Title>Ventas totales por cliente</Card.Title>
@@ -1504,7 +1504,7 @@ const imprimirEstadisticas = () => {
             </Card>
           </Col>
 
-          <Col sm="6" md="6" lg="4" className="mb-4">
+          <Col sm="12" md="6" lg="4" className="mb-4">
             <Card>
               <Card.Body>
                 <Card.Title>Ventas totales por producto</Card.Title>
@@ -1525,7 +1525,7 @@ const imprimirEstadisticas = () => {
             </Card>
           </Col>
 
-          <Col sm="6" md="6" lg="4" className="mb-4">
+          <Col sm="12" md="6" lg="4" className="mb-4">
           <Card>
             <Card.Body>
               <Card.Title>Ventas totales por día de la semana</Card.Title>
@@ -1546,7 +1546,7 @@ const imprimirEstadisticas = () => {
           </Card>
         </Col>
 
-        <Col sm="6" md="6" lg="4" className="mb-4">
+        <Col sm="12" md="6" lg="4" className="mb-4">
           <Card>
             <Card.Body>
               <Card.Title>Ventas totales por mes y año</Card.Title>
@@ -1567,7 +1567,7 @@ const imprimirEstadisticas = () => {
           </Card>
         </Col>
 
-        <Col sm="6" md="6" lg="4" className="mb-4">
+        <Col sm="12" md="6" lg="4" className="mb-4">
           <Card>
             <Card.Body>
               <Card.Title>Ventas totales por tipo de venta</Card.Title>
@@ -1588,7 +1588,7 @@ const imprimirEstadisticas = () => {
           </Card>
         </Col>
 
-        <Col sm="6" md="6" lg="4" className="mb-4">
+        <Col sm="12" md="6" lg="4" className="mb-4">
           <Card>
             <Card.Body>
               <Card.Title>Ingresos anuales por año</Card.Title>
@@ -1609,7 +1609,7 @@ const imprimirEstadisticas = () => {
           </Card>
         </Col>
 
-        <Col sm="6" md="6" lg="4" className="mb-4">
+        <Col sm="12" md="6" lg="4" className="mb-4">
             <Card>
               <Card.Body>
                 <Card.Title>Ganancias de los Productos</Card.Title>
@@ -1630,7 +1630,7 @@ const imprimirEstadisticas = () => {
             </Card>
           </Col>
 
-          <Col sm="6" md="6" lg="4" className="mb-4">
+          <Col sm="12" md="6" lg="4" className="mb-4">
             <Card>
               <Card.Body>
                 <Card.Title>Ventas totales por Categoría de Producto</Card.Title>
@@ -1651,7 +1651,7 @@ const imprimirEstadisticas = () => {
             </Card>
           </Col>
 
-          <Col sm="6" md="6" lg="4" className="mb-4">
+          <Col sm="12" md="6" lg="4" className="mb-4">
             <Card>
               <Card.Body>
                 <Card.Title>Promedio de Ventas por Producto</Card.Title>
@@ -1672,7 +1672,7 @@ const imprimirEstadisticas = () => {
             </Card>
           </Col>
 
-          <Col sm="6" md="6" lg="4" className="mb-4">
+          <Col sm="12" md="6" lg="4" className="mb-4">
             <Card>
               <Card.Body>
                 <Card.Title>Productos más Vendidos por Cantidad</Card.Title>
@@ -1693,7 +1693,7 @@ const imprimirEstadisticas = () => {
             </Card>
           </Col>
 
-          <Col sm="6" md="6" lg="4" className="mb-4">
+          <Col sm="12" md="6" lg="4" className="mb-4">
             <Card>
               <Card.Body>
                 <Card.Title>Estado del almacen</Card.Title>
@@ -1714,7 +1714,7 @@ const imprimirEstadisticas = () => {
             </Card>
           </Col>
 
-          <Col sm="6" md="6" lg="4" className="mb-4">
+          <Col sm="12" md="6" lg="4" className="mb-4">
             <Card>
               <Card.Body>
                 <Card.Title>Productos por Categoría</Card.Title>

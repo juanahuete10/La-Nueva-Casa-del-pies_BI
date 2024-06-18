@@ -32,6 +32,7 @@ CREATE TABLE h_Ventas (
   id_Vendedor Int,
   id_tiempo Int,
   id_ModoPago Int,
+  fecha DateTime,
   Estado Varchar(20),
   TipoVentas Varchar(20),
   Direccion_Envio Varchar(100),

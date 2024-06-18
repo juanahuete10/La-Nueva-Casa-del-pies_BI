@@ -5,6 +5,7 @@ import jsPDF from 'jspdf';
 import Chart from 'chart.js/auto';
 import '../App.css';  
 import html2canvas from 'html2canvas';
+import emailjs from 'emailjs-com';
 
 function Reportes({ rol }) { 
   const [productos, setProductos] = useState([]);
@@ -170,6 +171,496 @@ function Reportes({ rol }) {
       })
       .catch(error => console.error('Error al obtener los productos más vendidos:', error));
   }, []);
+
+  //vendedor, enviar Email-----------------------------------------------------------------------------------------
+
+  //función para formatear los datos a enviar por correo
+  const formatearVentasTotalesPorVendedor = (ventasTotalesPorVendedor) => {
+    return ventasTotalesPorVendedor.map(ventaTotalPorVendedor => {
+      return `Nombre: ${ventaTotalPorVendedor.nombre} \nCantidad de ventas: ${ventaTotalPorVendedor.cantidad_ventas}`;
+    }).join('\n\n');
+  };
+
+  //método para realizar el envío de los datos correspondientes
+  const enviarCorreo = () => {
+    // Formateo de datos
+    const ventasTotalesPorVendedorFormateadas = formatearVentasTotalesPorVendedor(ventasTotalesPorVendedor);
+
+    // Datos 
+    const data = {
+      title: 'Estas son las estadisticas de Ventas totales por vendedor',
+      subject: 'Reporte de ventas totales por vendedor',
+      to_name: 'Usuario',
+      user_email: 'rubiom831@gmail.com',
+      message: ventasTotalesPorVendedorFormateadas 
+    };
+
+    // Envía el correo utilizando EmailJS
+      emailjs.send('service_j9u86er', 'template_4gxkjsk', data, '4cMyLqQtskFFYTSVz')
+      .then((response) => {
+        alert('Correo enviado.');
+        console.log('Correo enviado.', response);
+      })
+      .catch((error) => {
+        alert('Error al enviar el correo.');
+        console.error('Error al enviar el correo:', error);
+      });
+  };
+
+  //Marca, enviar Email-------------------------------------------------------------------------------------------
+
+  // Función para formatear los datos a enviar por correo
+  const formatearVentasPorMarca = (ventasPorMarca) => {
+    return ventasPorMarca.map(ventaPorMarca => {
+      return `Marca: ${ventaPorMarca.marca} \nCantidad de ventas: ${ventaPorMarca.cantidad_ventas}`;
+    }).join('\n\n');
+  };
+
+  // Método para realizar el envío de los datos correspondientes
+  const enviarCorreo2 = () => {
+    // Formateo de datos
+    const ventasPorMarcaFormateadas = formatearVentasPorMarca(ventasPorMarca);
+
+    // Datos 
+    const data = {
+      title: 'Estas son las estadísticas de Ventas por Marca',
+      subject: 'Reporte de ventas por marca',
+      to_name: 'Usuario',
+      user_email: 'rubiom831@gmail.com',
+      message: ventasPorMarcaFormateadas 
+    };
+
+      // Envía el correo utilizando EmailJS
+      emailjs.send('service_j9u86er', 'template_4gxkjsk', data, '4cMyLqQtskFFYTSVz')
+      .then((response) => {
+        alert('Correo enviado.');
+        console.log('Correo enviado.', response);
+      })
+      .catch((error) => {
+        alert('Error al enviar el correo.');
+        console.error('Error al enviar el correo:', error);
+      });
+  };
+
+  //cliente, enviar Email-----------------------------------------------------------------------------------------
+
+    // Función para formatear los datos a enviar por correo
+    const formatearVentasPorCliente = (ventasPorCliente) => {
+      return ventasPorCliente.map(venta => {
+        return `Nombre del Cliente: ${venta.Nombre_Cliente} \nTotal de Ventas: ${venta.Total_Ventas}`;
+      }).join('\n\n');
+    };
+  
+    // Método para realizar el envío de los datos correspondientes
+    const enviarCorreo3 = () => {
+      // Formateo de datos
+      const ventasPorClienteFormateadas = formatearVentasPorCliente(ventasPorCliente);
+  
+      // Datos 
+      const data = {
+        title: 'Estas son las estadísticas de Ventas por Cliente',
+        subject: 'Reporte de ventas por cliente',
+        to_name: 'Usuario',
+        user_email: 'rubiom831@gmail.com',
+        message: ventasPorClienteFormateadas 
+      };
+  
+      // Envía el correo utilizando EmailJS
+      emailjs.send('service_j9u86er', 'template_4gxkjsk', data, '4cMyLqQtskFFYTSVz')
+      .then((response) => {
+        alert('Correo enviado.');
+        console.log('Correo enviado.', response);
+      })
+      .catch((error) => {
+        alert('Error al enviar el correo.');
+        console.error('Error al enviar el correo:', error);
+      });
+    };
+
+  //producto, enviar Email-----------------------------------------------------------------------------------------
+
+    // Función para formatear los datos a enviar por correo
+    const formatearVentasPorProducto = (ventasPorProducto) => {
+      return ventasPorProducto.map(venta => {
+        return `Producto: ${venta.Producto} \nTotal de Ventas: ${venta.Total_Ventas}`;
+      }).join('\n\n');
+    };
+  
+    // Método para realizar el envío de los datos correspondientes
+    const enviarCorreo4 = () => {
+      // Formateo de datos
+      const ventasPorProductoFormateadas = formatearVentasPorProducto(ventasPorProducto);
+  
+      // Datos 
+      const data = {
+        title: 'Estas son las estadísticas de Ventas por Producto',
+        subject: 'Reporte de ventas por producto',
+        to_name: 'Usuario',
+        user_email: 'rubiom831@gmail.com',
+        message: ventasPorProductoFormateadas 
+      };
+  
+      // Envía el correo utilizando EmailJS
+      emailjs.send('service_j9u86er', 'template_4gxkjsk', data, '4cMyLqQtskFFYTSVz')
+      .then((response) => {
+        alert('Correo enviado.');
+        console.log('Correo enviado.', response);
+      })
+      .catch((error) => {
+        alert('Error al enviar el correo.');
+        console.error('Error al enviar el correo:', error);
+      });
+    };
+
+  //ventas por dia de la semana, enviar Email----------------------------------------------------------------------
+
+    // Función para formatear los datos a enviar por correo
+    const formatearVentasPorDiaSemana = (ventasPorDiaSemana) => {
+      return ventasPorDiaSemana.map(venta => {
+        return `Día de la Semana: ${venta.Dia_Semana} \nTotal de Ventas: ${venta.Total_Ventas}`;
+      }).join('\n\n');
+    };
+  
+    // Método para realizar el envío de los datos correspondientes
+    const enviarCorreo5 = () => {
+      // Formateo de datos
+      const ventasPorDiaSemanaFormateadas = formatearVentasPorDiaSemana(ventasPorDiaSemana);
+  
+      // Datos 
+      const data = {
+        title: 'Estas son las estadísticas de Ventas por Día de la Semana',
+        subject: 'Reporte de ventas por día de la semana',
+        to_name: 'Usuario',
+        user_email: 'rubiom831@gmail.com',
+        message: ventasPorDiaSemanaFormateadas 
+      };
+  
+      // Envía el correo utilizando EmailJS
+      emailjs.send('service_j9u86er', 'template_4gxkjsk', data, '4cMyLqQtskFFYTSVz')
+      .then((response) => {
+        alert('Correo enviado.');
+        console.log('Correo enviado.', response);
+      })
+      .catch((error) => {
+        alert('Error al enviar el correo.');
+        console.error('Error al enviar el correo:', error);
+      });
+    };
+
+  //ventas por mes y año, enviar Email-----------------------------------------------------------------------------
+
+    // Función para formatear los datos a enviar por correo
+    const formatearVentasPorMesAnio = (VentasPorMesAnio) => {
+      return VentasPorMesAnio.map(venta => {
+        return `Mes/Año: ${venta.Mes}/${venta.Año} \nTotal de Ventas: ${venta.Total_Ventas}`;
+      }).join('\n\n');
+    };
+  
+    // Método para realizar el envío de los datos correspondientes
+    const enviarCorreo6 = () => {
+      // Formateo de datos
+      const ventasPorMesAnioFormateadas = formatearVentasPorMesAnio(ventasPorMesAnio);
+  
+      // Datos 
+      const data = {
+        title: 'Estas son las estadísticas de Ventas por Mes y Año',
+        subject: 'Reporte de ventas por mes y año',
+        to_name: 'Usuario',
+        user_email: 'rubiom831@gmail.com',
+        message: ventasPorMesAnioFormateadas 
+      };
+  
+      // Envía el correo utilizando EmailJS
+      emailjs.send('service_j9u86er', 'template_4gxkjsk', data, '4cMyLqQtskFFYTSVz')
+      .then((response) => {
+        alert('Correo enviado.');
+        console.log('Correo enviado.', response);
+      })
+      .catch((error) => {
+        alert('Error al enviar el correo.');
+        console.error('Error al enviar el correo:', error);
+      });
+    };
+
+  //Ventas totales por tipo de venta, enviar Email-----------------------------------------------------------------
+
+    // Función para formatear los datos a enviar por correo
+    const formatearVentasPorTipo = (ventasPorTipo) => {
+      return ventasPorTipo.map(venta => {
+        return `Tipo de Ventas: ${venta.TipoVentas} \nTotal de Ventas: ${venta.Total_Ventas}`;
+      }).join('\n\n');
+    };
+  
+    // Método para realizar el envío de los datos correspondientes
+    const enviarCorreo7 = () => {   
+      // Formateo de datos
+      const ventasPorTipoFormateadas = formatearVentasPorTipo(ventasPorTipo);
+  
+      // Datos 
+      const data = {
+        title: 'Estas son las estadísticas de Ventas por Tipo',
+        subject: 'Reporte de ventas por tipo',
+        to_name: 'Usuario',
+        user_email: 'rubiom831@gmail.com',
+        message: ventasPorTipoFormateadas 
+      };
+  
+      // Envía el correo utilizando EmailJS
+      emailjs.send('service_j9u86er', 'template_4gxkjsk', data, '4cMyLqQtskFFYTSVz')
+      .then((response) => {
+        alert('Correo enviado.');
+        console.log('Correo enviado.', response);
+      })
+      .catch((error) => {
+        alert('Error al enviar el correo.');
+        console.error('Error al enviar el correo:', error);
+      });
+    };
+
+  //Ingresos anuales por año, enviar Email-------------------------------------------------------------------------
+
+  // Función para formatear los datos a enviar por correo
+  const formatearIngresosAnuales = (ingresosAnuales) => {
+    return ingresosAnuales.map(ingreso => {
+      return `Año: ${ingreso.Año} \nIngresos del Año Actual: ${ingreso.Ingresos_Año_Actual}`;
+    }).join('\n\n');
+  };
+
+  // Método para realizar el envío de los datos correspondientes
+  const enviarCorreo8 = () => {
+    // Formateo de datos
+    const ingresosAnualesFormateados = formatearIngresosAnuales(ingresosAnuales);
+
+    // Datos 
+    const data = {
+      title: 'Estas son las estadísticas de Ingresos Anuales',
+      subject: 'Reporte de ingresos anuales',
+      to_name: 'Usuario',
+      user_email: 'rubiom831@gmail.com',
+      message: ingresosAnualesFormateados 
+    };
+
+    // Envía el correo utilizando EmailJS
+    emailjs.send('service_j9u86er', 'template_4gxkjsk', data, '4cMyLqQtskFFYTSVz')
+    .then((response) => {
+      alert('Correo enviado.');
+      console.log('Correo enviado.', response);
+    })
+    .catch((error) => {
+      alert('Error al enviar el correo.');
+      console.error('Error al enviar el correo:', error);
+    });
+  };
+
+  //Ganancias de los Productos, enviar Email-----------------------------------------------------------------------
+
+    // Función para formatear los datos a enviar por correo
+    const formatearProductosGanancias = (productosGanancias) => {
+      return productosGanancias.map(producto => {
+        return `Producto: ${producto.Producto} \nVentas Totales: ${producto.Ventas_Totales}`;
+      }).join('\n\n');
+    };
+  
+    // Método para realizar el envío de los datos correspondientes
+    const enviarCorreo9 = () => {
+      // Formateo de datos
+      const productosGananciasFormateadas = formatearProductosGanancias(productosGanancias);
+  
+      // Datos 
+      const data = {
+        title: 'Estas son las estadísticas de Ganancias por Producto',
+        subject: 'Reporte de ganancias por producto',
+        to_name: 'Usuario',
+        user_email: 'rubiom831@gmail.com',
+        message: productosGananciasFormateadas 
+      };
+  
+      // Envía el correo utilizando EmailJS
+      emailjs.send('service_j9u86er', 'template_4gxkjsk', data, '4cMyLqQtskFFYTSVz')
+      .then((response) => {
+        alert('Correo enviado.');
+        console.log('Correo enviado.', response);
+      })
+      .catch((error) => {
+        alert('Error al enviar el correo.');
+        console.error('Error al enviar el correo:', error);
+      });
+    };
+  
+  //Ventas totales por Categoría de Producto, enviar Email----------------------------------------------------------
+
+    // Función para formatear los datos a enviar por correo
+    const formatearVentasPorCategoriaProducto = (ventasPorCategoriaProducto) => {
+      return ventasPorCategoriaProducto.map(venta => {
+        return `Categoría: ${venta.nombre_C} \nVentas Totales: ${venta.Ventas_Totales}`;
+      }).join('\n\n');
+    };
+  
+    // Método para realizar el envío de los datos correspondientes
+    const enviarCorreo10 = () => {
+      // Formateo de datos
+      const ventasPorCategoriaProductoFormateadas = formatearVentasPorCategoriaProducto(ventasPorCategoriaProducto);
+  
+      // Datos 
+      const data = {
+        title: 'Estas son las estadísticas de Ventas por Categoría de Producto',
+        subject: 'Reporte de ventas por categoría de producto',
+        to_name: 'Usuario',
+        user_email: 'rubiom831@gmail.com',
+        message: ventasPorCategoriaProductoFormateadas 
+      };
+  
+      // Envía el correo utilizando EmailJS
+      emailjs.send('service_j9u86er', 'template_4gxkjsk', data, '4cMyLqQtskFFYTSVz')
+      .then((response) => {
+        alert('Correo enviado.');
+        console.log('Correo enviado.', response);
+      })
+      .catch((error) => {
+        alert('Error al enviar el correo.');
+        console.error('Error al enviar el correo:', error);
+      });
+    };
+
+  //Promedio de Ventas por Producto, enviar Email------------------------------------------------------------------
+
+    // Función para formatear los datos a enviar por correo
+    const formatearPromedioVentasPorProducto = (promedioVentasPorProducto) => {
+      return promedioVentasPorProducto.map(venta => {
+        return `Producto: ${venta.Producto} \nPromedio de Ventas: ${venta.Promedio_Ventas}`;
+      }).join('\n\n');
+    };
+  
+    // Método para realizar el envío de los datos correspondientes
+    const enviarCorreo11 = () => {
+      // Formateo de datos
+      const promedioVentasPorProductoFormateadas = formatearPromedioVentasPorProducto(promedioVentasPorProducto);
+  
+      // Datos 
+      const data = {
+        title: 'Estas son las estadísticas del Promedio de Ventas por Producto',
+        subject: 'Reporte del promedio de ventas por producto',
+        to_name: 'Usuario',
+        user_email: 'rubiom831@gmail.com',
+        message: promedioVentasPorProductoFormateadas 
+      };
+  
+      // Envía el correo utilizando EmailJS
+      emailjs.send('service_j9u86er', 'template_4gxkjsk', data, '4cMyLqQtskFFYTSVz')
+      .then((response) => {
+        alert('Correo enviado.');
+        console.log('Correo enviado.', response);
+      })
+      .catch((error) => {
+        alert('Error al enviar el correo.');
+        console.error('Error al enviar el correo:', error);
+      });
+    };
+  
+  //Productos más Vendidos por Cantidad, enviar Email--------------------------------------------------------------
+
+    // Función para formatear los datos a enviar por correo
+    const formatearProductosMasVendidos = (productosMasVendidos) => {
+      return productosMasVendidos.map(producto => {
+        return `Producto: ${producto.Producto} \nCantidad Total Vendida: ${producto.Cantidad_Total_Vendida}`;
+      }).join('\n\n');
+    };
+  
+    // Método para realizar el envío de los datos correspondientes
+    const enviarCorreo12 = () => {
+      // Formateo de datos
+      const productosMasVendidosFormateados = formatearProductosMasVendidos(productosMasVendidos);
+  
+      // Datos 
+      const data = {
+        title: 'Estas son las estadísticas de los Productos Más Vendidos',
+        subject: 'Reporte de productos más vendidos',
+        to_name: 'Usuario',
+        user_email: 'rubiom831@gmail.com',
+        message: productosMasVendidosFormateados 
+      };
+  
+      // Envía el correo utilizando EmailJS
+      emailjs.send('service_j9u86er', 'template_4gxkjsk', data, '4cMyLqQtskFFYTSVz')
+      .then((response) => {
+        alert('Correo enviado.');
+        console.log('Correo enviado.', response);
+      })
+      .catch((error) => {
+        alert('Error al enviar el correo.');
+        console.error('Error al enviar el correo:', error);
+      });
+    };
+
+  //Estado del almacen, enviar Email-------------------------------------------------------------------------------
+
+    // Función para formatear los datos a enviar por correo
+    const formatearProductos = (productos) => {
+      return productos.map(producto => {
+        return `Producto: ${producto.nombre} \nCantidad: ${producto.cantidad}`;
+      }).join('\n\n');
+    };
+  
+    // Método para realizar el envío de los datos correspondientes
+    const enviarCorreo13 = () => {
+      // Formateo de datos
+      const productosFormateados = formatearProductos(productos);
+  
+      // Datos 
+      const data = {
+        title: 'Estas son las estadísticas del estado del almacen ',
+        subject: 'Reporte del estado del almacen',
+        to_name: 'Usuario',
+        user_email: 'rubiom831@gmail.com',
+        message: productosFormateados 
+      };
+  
+      // Envía el correo utilizando EmailJS
+      emailjs.send('service_j9u86er', 'template_4gxkjsk', data, '4cMyLqQtskFFYTSVz')
+      .then((response) => {
+        alert('Correo enviado.');
+        console.log('Correo enviado.', response);
+      })
+      .catch((error) => {
+        alert('Error al enviar el correo.');
+        console.error('Error al enviar el correo:', error);
+      });
+    };
+
+  //Productos por Categoría, enviar Email--------------------------------------------------------------------------
+
+    // Función para formatear los datos a enviar por correo
+    const formatearProductosPorCategoria = (productosPorCategoria) => {
+      return productosPorCategoria.map(categoria => {
+        return `Categoría: ${categoria.nombre_C} \nCantidad de Productos: ${categoria.CantidadProductos}`;
+      }).join('\n\n');
+    };
+  
+    // Método para realizar el envío de los datos correspondientes
+    const enviarCorreo14 = () => {
+      // Formateo de datos
+      const productosPorCategoriaFormateados = formatearProductosPorCategoria(productosPorCategoria);
+  
+      // Datos 
+      const data = {
+        title: 'Estas son las estadísticas de Productos por Categoría',
+        subject: 'Reporte de productos por categoría',
+        to_name: 'Usuario',
+        user_email: 'rubiom831@gmail.com',
+        message: productosPorCategoriaFormateados 
+      };
+  
+      // Envía el correo utilizando EmailJS
+      emailjs.send('service_j9u86er', 'template_4gxkjsk', data, '4cMyLqQtskFFYTSVz')
+      .then((response) => {
+        alert('Correo enviado.');
+        console.log('Correo enviado.', response);
+      })
+      .catch((error) => {
+        alert('Error al enviar el correo.');
+        console.error('Error al enviar el correo:', error);
+      });
+    };
 
   //cantidad de productos------------------------------------------------------------------------------------------
 
@@ -599,7 +1090,7 @@ function Reportes({ rol }) {
     }
   }, [ingresosAnuales]);
 
-  //productos con poca ganancias
+  //productos con poca ganancias-------------------------------------------------------------------------------------
 
   useEffect(() => {
     if (productosGanancias.length > 0) {
@@ -1456,6 +1947,9 @@ const imprimirEstadisticas = () => {
                   <Button onClick={generarReporteVendedoresImg}>
                     Generar reporte con imagen
                   </Button>
+                  <Button variant="secondary" onClick={enviarCorreo}>
+                    Enviar por Correo
+                  </Button>
                 </div>
               </Card.Body>
 
@@ -1476,6 +1970,9 @@ const imprimirEstadisticas = () => {
                 </Button>
                 <Button onClick={generarReporteMarcasImg}>
                   Generar reporte con imagen
+                </Button>
+                <Button variant="secondary" onClick={enviarCorreo2}>
+                    Enviar por Correo
                 </Button>
               </div>
               </Card.Body>
@@ -1498,6 +1995,9 @@ const imprimirEstadisticas = () => {
                 <Button onClick={generarReporteClientesImg}>
                   Generar reporte con imagen
                 </Button>
+                <Button variant="secondary" onClick={enviarCorreo3}>
+                    Enviar por Correo
+                </Button>
               </div>
               </Card.Body>
 
@@ -1518,6 +2018,9 @@ const imprimirEstadisticas = () => {
                 </Button>
                 <Button onClick={generarReporteProductosImg}>
                   Generar reporte con imagen
+                </Button>
+                <Button variant="secondary" onClick={enviarCorreo4}>
+                    Enviar por Correo
                 </Button>
               </div>
               </Card.Body>
@@ -1540,6 +2043,9 @@ const imprimirEstadisticas = () => {
               <Button onClick={generarReporteDiaSemanaImg}>
                 Generar reporte con imagen
               </Button>
+              <Button variant="secondary" onClick={enviarCorreo5}>
+                    Enviar por Correo
+              </Button>
             </div>
             </Card.Body>
 
@@ -1560,6 +2066,9 @@ const imprimirEstadisticas = () => {
               </Button>
               <Button onClick={generarReporteMesAnioImg}>
                 Generar reporte con imagen
+              </Button>
+              <Button variant="secondary" onClick={enviarCorreo6}>
+                    Enviar por Correo
               </Button>
             </div>
             </Card.Body>
@@ -1582,6 +2091,9 @@ const imprimirEstadisticas = () => {
               <Button onClick={generarReporteVentasPorTipoImg}>
                 Generar reporte con imagen
               </Button>
+              <Button variant="secondary" onClick={enviarCorreo7}>
+                    Enviar por Correo
+              </Button>
             </div>
             </Card.Body>
 
@@ -1602,6 +2114,9 @@ const imprimirEstadisticas = () => {
                 </Button>
                 <Button onClick={generarReporteIngresosAnualesImg}>
                   Generar reporte con imagen
+                </Button>
+                <Button variant="secondary" onClick={enviarCorreo8}>
+                    Enviar por Correo
                 </Button>
               </div>
             </Card.Body>
@@ -1624,6 +2139,9 @@ const imprimirEstadisticas = () => {
                   <Button onClick={generarReporteProductosGananciasImg}>
                     Generar reporte con imagen
                   </Button>
+                  <Button variant="secondary" onClick={enviarCorreo9}>
+                    Enviar por Correo
+                  </Button>
                 </div>
               </Card.Body>
 
@@ -1644,6 +2162,9 @@ const imprimirEstadisticas = () => {
                   </Button>
                   <Button onClick={generarReporteVentasPorCategoriaImg}>
                     Generar reporte con imagen
+                  </Button>
+                  <Button variant="secondary" onClick={enviarCorreo10}>
+                    Enviar por Correo
                   </Button>
                 </div>
               </Card.Body>
@@ -1666,6 +2187,9 @@ const imprimirEstadisticas = () => {
                   <Button onClick={generarReportePromedioVentasPorProductoImg}>
                     Generar reporte con imagen
                   </Button>
+                  <Button variant="secondary" onClick={enviarCorreo11}>
+                    Enviar por Correo
+                  </Button>
                 </div>
               </Card.Body>
               
@@ -1686,6 +2210,9 @@ const imprimirEstadisticas = () => {
                   </Button>
                   <Button onClick={generarReporteProductosMasVendidosImg}>
                     Generar reporte con imagen
+                  </Button>
+                  <Button variant="secondary" onClick={enviarCorreo12}>
+                    Enviar por Correo
                   </Button>
                 </div>
               </Card.Body>
@@ -1708,6 +2235,9 @@ const imprimirEstadisticas = () => {
                   <Button onClick={generarReporteAlmacenImg}>
                     Generar reporte con imagen
                   </Button>
+                  <Button variant="secondary" onClick={enviarCorreo13}>
+                    Enviar por Correo
+                  </Button>
                 </div>
               </Card.Body>
 
@@ -1728,6 +2258,9 @@ const imprimirEstadisticas = () => {
                   </Button>
                   <Button onClick={generarReporteCategoriasImg}>
                     Generar reporte con imagen
+                  </Button>
+                  <Button variant="secondary" onClick={enviarCorreo14}>
+                    Enviar por Correo
                   </Button>
                 </div>
               </Card.Body>

@@ -632,6 +632,7 @@
   v.id_Vendedor, 
   v.cod_Venta,
   v.Estado,
+  v.fecha,
   DV.PrecioUnitario AS precio_Unit,
   v.id_ModoPago,
   v.TipoVentas,
@@ -777,6 +778,29 @@ INNER JOIN DetalleVenta DV ON v.cod_Venta = DV.cod_Venta;
         <precision>-1</precision>
         <origin>Carga_Ventas</origin>
         <comments>Estado</comments>
+        <conversion_Mask/>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_ES</date_format_locale>
+        <date_format_timezone>America/Regina</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Date</type>
+        <storagetype>normal</storagetype>
+        <name>fecha</name>
+        <length>-1</length>
+        <precision>-1</precision>
+        <origin>Carga_Ventas</origin>
+        <comments>fecha</comments>
         <conversion_Mask/>
         <decimal_symbol>,</decimal_symbol>
         <grouping_symbol>.</grouping_symbol>

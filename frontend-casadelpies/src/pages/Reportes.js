@@ -6,6 +6,8 @@ import Chart from 'chart.js/auto';
 import '../App.css';  
 import html2canvas from 'html2canvas';
 import emailjs from 'emailjs-com';
+import * as XLSX from 'xlsx';
+import { FaFileExcel, FaEnvelopeCircleCheck, FaImage, FaFilePdf } from 'react-icons/fa6';
 
 function Reportes({ rol }) { 
   const [productos, setProductos] = useState([]);
@@ -661,6 +663,259 @@ function Reportes({ rol }) {
         console.error('Error al enviar el correo:', error);
       });
     };
+
+  //función para guardar los datos de las estadísticas en un archivo de excel--------------------------------------
+
+  //Ventas totales por vendedor------------------------------------------------------------------------------------
+
+  const exportarVentasAExcel = () => {
+    // Convertir los datos a una hoja de trabajo de Excel
+    const worksheet = XLSX.utils.json_to_sheet(ventasTotalesPorVendedor);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Ventas Por Vendedor');
+  
+    // Generar y descargar el archivo Excel
+    XLSX.writeFile(workbook, 'ventas_por_vendedor.xlsx');
+  };
+
+  //Ventas totales por marca---------------------------------------------------------------------------------------
+
+  const exportarVentasPorMarcaAExcel = () => {
+    // Convertir los datos a una hoja de trabajo de Excel
+    const datos = ventasPorMarca.map(ventaPorMarca => ({
+      Marca: ventaPorMarca.marca,
+      'Cantidad de Ventas': ventaPorMarca.cantidad_ventas
+    }));
+  
+    const worksheet = XLSX.utils.json_to_sheet(datos);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Ventas Por Marca');
+  
+    // Generar y descargar el archivo Excel
+    XLSX.writeFile(workbook, 'ventas_por_marca.xlsx');
+  };
+
+  //Ventas totales por cliente-------------------------------------------------------------------------------------
+
+  const exportarVentasPorClienteAExcel = () => {
+    // Convertir los datos a una hoja de trabajo de Excel
+    const datos = ventasPorCliente.map(venta => ({
+      'Nombre del Cliente': venta.Nombre_Cliente,
+      'Total de Ventas': venta.Total_Ventas
+    }));
+  
+    const worksheet = XLSX.utils.json_to_sheet(datos);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Ventas Por Cliente');
+  
+    // Generar y descargar el archivo Excel
+    XLSX.writeFile(workbook, 'ventas_por_cliente.xlsx');
+  };
+
+  //Ventas totales por producto------------------------------------------------------------------------------------
+
+  const exportarVentasPorProductoAExcel = () => {
+    // Convertir los datos a una hoja de trabajo de Excel
+    const datos = ventasPorProducto.map(venta => ({
+      'Producto': venta.Producto,
+      'Total de Ventas': venta.Total_Ventas
+    }));
+  
+    const worksheet = XLSX.utils.json_to_sheet(datos);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Ventas Por Producto');
+  
+    // Generar y descargar el archivo Excel
+    XLSX.writeFile(workbook, 'ventas_por_producto.xlsx');
+  };
+
+  //Ventas totales por día de la semana----------------------------------------------------------------------------
+
+  const exportarVentasPorDiaSemanaAExcel = () => {
+    // Convertir los datos a una hoja de trabajo de Excel
+    const datos = ventasPorDiaSemana.map(venta => ({
+      'Día de la Semana': venta.Dia_Semana,
+      'Total de Ventas': venta.Total_Ventas
+    }));
+  
+    const worksheet = XLSX.utils.json_to_sheet(datos);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Ventas Por Día de la Semana');
+  
+    // Generar y descargar el archivo Excel
+    XLSX.writeFile(workbook, 'ventas_por_dia_semana.xlsx');
+  };
+
+  //Ventas totales por mes y año-----------------------------------------------------------------------------------
+
+  const exportarVentasPorMesAnioAExcel = () => {
+    // Convertir los datos a una hoja de trabajo de Excel
+    const datos = ventasPorMesAnio.map(venta => ({
+      'Mes/Año': `${venta.Mes}/${venta.Año}`,
+      'Total de Ventas': venta.Total_Ventas
+    }));
+  
+    const worksheet = XLSX.utils.json_to_sheet(datos);
+    const workbook = XLSX.utils.book_new();
+    const sheetName = 'VentasPorMesAnio'; // Nombre sin caracteres especiales
+    XLSX.utils.book_append_sheet(workbook, worksheet, sheetName);
+  
+    // Generar y descargar el archivo Excel
+    XLSX.writeFile(workbook, 'ventas_por_mes_anio.xlsx');
+  };
+
+  //Ventas totales por tipo de venta-------------------------------------------------------------------------------
+
+  const exportarVentasPorTipoAExcel = () => {
+    // Convertir los datos a una hoja de trabajo de Excel
+    const datos = ventasPorTipo.map(venta => ({
+      'Tipo de Ventas': venta.TipoVentas,
+      'Total de Ventas': venta.Total_Ventas
+    }));
+  
+    const worksheet = XLSX.utils.json_to_sheet(datos);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Ventas Por Tipo');
+  
+    // Generar y descargar el archivo Excel
+    XLSX.writeFile(workbook, 'ventas_por_tipo.xlsx');
+  };
+
+  //Ingresos anuales por año---------------------------------------------------------------------------------------
+
+  const exportarIngresosAnualesAExcel = () => {
+    // Convertir los datos a una hoja de trabajo de Excel
+    const datos = ingresosAnuales.map(ingreso => ({
+      'Año': ingreso.Año,
+      'Ingresos Anuales': ingreso.Ingresos_Año_Actual
+    }));
+  
+    const worksheet = XLSX.utils.json_to_sheet(datos);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Ingresos Anuales');
+  
+    // Generar y descargar el archivo Excel
+    XLSX.writeFile(workbook, 'ingresos_anuales.xlsx');
+  };
+
+  //Ganancias de los Productos-------------------------------------------------------------------------------------
+
+  const exportarProductosGananciasAExcel = () => {
+    // Convertir los datos a una hoja de trabajo de Excel
+    const datos = productosGanancias.map(producto => ({
+      'Producto': producto.Producto,
+      'Ganancias': producto.Ventas_Totales
+    }));
+  
+    const worksheet = XLSX.utils.json_to_sheet(datos);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Productos y Ganancias');
+  
+    // Generar y descargar el archivo Excel
+    XLSX.writeFile(workbook, 'productos_ganancias.xlsx');
+  };
+
+  //Ventas totales por Categoría de Producto-----------------------------------------------------------------------
+
+  const exportarVentasPorCategoriaProductoAExcel = () => {
+    // Convertir los datos a una hoja de trabajo de Excel
+    const datos = ventasPorCategoriaProducto.map(venta => ({
+      'Categoría': venta.nombre_C,
+      'Ventas Totales': venta.Ventas_Totales
+    }));
+  
+    // Truncar el nombre de la hoja si excede los 31 caracteres
+    const nombreHoja = 'Ventas Por Categoría';
+  
+    const worksheet = XLSX.utils.json_to_sheet(datos);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, nombreHoja.substring(0, 31)); 
+  
+    // Generar y descargar el archivo Excel
+    XLSX.writeFile(workbook, 'ventas_por_categoria_producto.xlsx');
+  };
+
+  //Promedio de Ventas por Producto--------------------------------------------------------------------------------
+
+  const exportarPromedioVentasPorProductoAExcel = () => {
+    // Convertir los datos a una hoja de trabajo de Excel
+    const datos = promedioVentasPorProducto.map(venta => ({
+      'Producto': venta.Producto,
+      'Promedio de Ventas': venta.Promedio_Ventas
+    }));
+  
+    // Truncar el nombre de la hoja si excede los 31 caracteres
+    const nombreHoja = 'Promedio Ventas Producto';
+  
+    const worksheet = XLSX.utils.json_to_sheet(datos);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, nombreHoja.substring(0, 31));
+  
+    // Generar y descargar el archivo Excel
+    XLSX.writeFile(workbook, 'promedio_ventas_producto.xlsx');
+  };
+
+  //Productos más Vendidos por Cantidad----------------------------------------------------------------------------
+
+  const exportarProductosMasVendidosAExcel = () => {
+    // Convertir los datos a una hoja de trabajo de Excel
+    const datos = productosMasVendidos.map(producto => ({
+      'Producto': producto.Producto,
+      'Cantidad Total Vendida': producto.Cantidad_Total_Vendida
+    }));
+  
+    // Truncar el nombre de la hoja si excede los 31 caracteres
+    const nombreHoja = 'Productos Más Vendidos';
+  
+    const worksheet = XLSX.utils.json_to_sheet(datos);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, nombreHoja.substring(0, 31)); 
+  
+    // Generar y descargar el archivo Excel
+    XLSX.writeFile(workbook, 'productos_mas_vendidos.xlsx');
+  };
+
+  //Estado del almacen---------------------------------------------------------------------------------------------
+
+  const exportarProductosAExcel = () => {
+    // Convertir los datos a una hoja de trabajo de Excel
+    const datos = productos.map(producto => ({
+      'Nombre del Producto': producto.nombre,
+      'Cantidad': producto.cantidad
+    }));
+  
+    // Truncar el nombre de la hoja si excede los 31 caracteres
+    const nombreHoja = 'Productos'; 
+  
+    const worksheet = XLSX.utils.json_to_sheet(datos);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, nombreHoja.substring(0, 31));
+  
+    // Generar y descargar el archivo Excel
+    XLSX.writeFile(workbook, 'Estado_del_almacen.xlsx');
+  };
+
+  //Productos por Categoría----------------------------------------------------------------------------------------
+
+  const exportarProductosPorCategoriaAExcel = () => {
+    // Convertir los datos a una hoja de trabajo de Excel
+    const datos = productosPorCategoria.map(categoria => ({
+      'Categoría': categoria.nombre_C,
+      'Cantidad de Productos': categoria.CantidadProductos
+    }));
+  
+    // Truncar el nombre de la hoja si excede los 31 caracteres
+    const nombreHoja = 'Productos por Categoría';
+  
+    const worksheet = XLSX.utils.json_to_sheet(datos);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, nombreHoja.substring(0, 31));
+  
+    // Generar y descargar el archivo Excel
+    XLSX.writeFile(workbook, 'productos_por_categoria.xlsx');
+  };
+
+  //---------------------------------------------------------------------------------------------------------------
 
   //cantidad de productos------------------------------------------------------------------------------------------
 
@@ -1942,13 +2197,16 @@ const imprimirEstadisticas = () => {
               <Card.Body>
               <div style={{ display: 'flex', gap: '10px' }}>
                   <Button onClick={generarReporteVendedores}>
-                    Generar reporte
+                    <FaFilePdf style={{ color: 'cyan' }} />
                   </Button>
                   <Button onClick={generarReporteVendedoresImg}>
-                    Generar reporte con imagen
+                    <FaImage style={{ color: 'purple' }} />
                   </Button>
                   <Button variant="secondary" onClick={enviarCorreo}>
-                    Enviar por Correo
+                    <FaEnvelopeCircleCheck style={{ color: 'darkgray' }} />
+                  </Button>
+                  <Button variant="success" onClick={exportarVentasAExcel}>
+                    <FaFileExcel style={{ color: 'white' }} />
                   </Button>
                 </div>
               </Card.Body>
@@ -1966,13 +2224,16 @@ const imprimirEstadisticas = () => {
               <Card.Body>
               <div style={{ display: 'flex', gap: '10px' }}>
                 <Button onClick={generarReporteMarcas}>
-                  Generar reporte
+                  <FaFilePdf style={{ color: 'cyan' }} />
                 </Button>
                 <Button onClick={generarReporteMarcasImg}>
-                  Generar reporte con imagen
+                  <FaImage style={{ color: 'purple' }} />
                 </Button>
                 <Button variant="secondary" onClick={enviarCorreo2}>
-                    Enviar por Correo
+                  <FaEnvelopeCircleCheck style={{ color: 'darkgray' }} />
+                </Button>
+                <Button variant="success" onClick={exportarVentasPorMarcaAExcel}>
+                  <FaFileExcel style={{ color: 'white' }} />
                 </Button>
               </div>
               </Card.Body>
@@ -1990,13 +2251,16 @@ const imprimirEstadisticas = () => {
               <Card.Body>
               <div style={{ display: 'flex', gap: '10px' }}>
                 <Button onClick={generarReporteClientes}>
-                  Generar reporte
+                  <FaFilePdf style={{ color: 'cyan' }} />
                 </Button>
                 <Button onClick={generarReporteClientesImg}>
-                  Generar reporte con imagen
+                  <FaImage style={{ color: 'purple' }} />
                 </Button>
                 <Button variant="secondary" onClick={enviarCorreo3}>
-                    Enviar por Correo
+                  <FaEnvelopeCircleCheck style={{ color: 'darkgray' }} />
+                </Button>
+                <Button variant="success" onClick={exportarVentasPorClienteAExcel}>
+                  <FaFileExcel style={{ color: 'white' }} />
                 </Button>
               </div>
               </Card.Body>
@@ -2014,13 +2278,16 @@ const imprimirEstadisticas = () => {
               <Card.Body>
               <div style={{ display: 'flex', gap: '10px' }}>
                 <Button onClick={generarReporteProductos}>
-                  Generar reporte
+                  <FaFilePdf style={{ color: 'cyan' }} />
                 </Button>
                 <Button onClick={generarReporteProductosImg}>
-                  Generar reporte con imagen
+                  <FaImage style={{ color: 'purple' }} />
                 </Button>
                 <Button variant="secondary" onClick={enviarCorreo4}>
-                    Enviar por Correo
+                  <FaEnvelopeCircleCheck style={{ color: 'darkgray' }} />
+                </Button>
+                <Button variant="success" onClick={exportarVentasPorProductoAExcel}>
+                  <FaFileExcel style={{ color: 'white' }} />
                 </Button>
               </div>
               </Card.Body>
@@ -2038,13 +2305,16 @@ const imprimirEstadisticas = () => {
             <Card.Body>
             <div style={{ display: 'flex', gap: '10px' }}>
               <Button onClick={generarReporteDiaSemana}>
-                Generar reporte
+                <FaFilePdf style={{ color: 'cyan' }} />
               </Button>
               <Button onClick={generarReporteDiaSemanaImg}>
-                Generar reporte con imagen
+                <FaImage style={{ color: 'purple' }} />
               </Button>
               <Button variant="secondary" onClick={enviarCorreo5}>
-                    Enviar por Correo
+                <FaEnvelopeCircleCheck style={{ color: 'darkgray' }} />
+              </Button>
+              <Button variant="success" onClick={exportarVentasPorDiaSemanaAExcel}>
+                <FaFileExcel style={{ color: 'white' }} />
               </Button>
             </div>
             </Card.Body>
@@ -2062,13 +2332,16 @@ const imprimirEstadisticas = () => {
             <Card.Body>
             <div style={{ display: 'flex', gap: '10px' }}>
               <Button onClick={generarReporteMesAnio}>
-                Generar reporte
+                <FaFilePdf style={{ color: 'cyan' }} />
               </Button>
               <Button onClick={generarReporteMesAnioImg}>
-                Generar reporte con imagen
+                <FaImage style={{ color: 'purple' }} />
               </Button>
               <Button variant="secondary" onClick={enviarCorreo6}>
-                    Enviar por Correo
+                <FaEnvelopeCircleCheck style={{ color: 'darkgray' }} />
+              </Button>
+              <Button variant="success" onClick={exportarVentasPorMesAnioAExcel}>
+                <FaFileExcel style={{ color: 'white' }} />
               </Button>
             </div>
             </Card.Body>
@@ -2086,13 +2359,16 @@ const imprimirEstadisticas = () => {
             <Card.Body>
             <div style={{ display: 'flex', gap: '10px' }}>
               <Button onClick={generarReporteVentasPorTipo}>
-                Generar reporte
+                <FaFilePdf style={{ color: 'cyan' }} />
               </Button>
               <Button onClick={generarReporteVentasPorTipoImg}>
-                Generar reporte con imagen
+                <FaImage style={{ color: 'purple' }} />
               </Button>
               <Button variant="secondary" onClick={enviarCorreo7}>
-                    Enviar por Correo
+                <FaEnvelopeCircleCheck style={{ color: 'darkgray' }} />
+              </Button>
+              <Button variant="success" onClick={exportarVentasPorTipoAExcel}>
+                <FaFileExcel style={{ color: 'white' }} />
               </Button>
             </div>
             </Card.Body>
@@ -2110,13 +2386,16 @@ const imprimirEstadisticas = () => {
             <Card.Body>
               <div style={{ display: 'flex', gap: '10px' }}>
                 <Button onClick={generarReporteIngresosAnuales}>
-                  Generar reporte
+                  <FaFilePdf style={{ color: 'cyan' }} />
                 </Button>
                 <Button onClick={generarReporteIngresosAnualesImg}>
-                  Generar reporte con imagen
+                  <FaImage style={{ color: 'purple' }} />
                 </Button>
                 <Button variant="secondary" onClick={enviarCorreo8}>
-                    Enviar por Correo
+                  <FaEnvelopeCircleCheck style={{ color: 'darkgray' }} />
+                </Button>
+                <Button variant="success" onClick={exportarIngresosAnualesAExcel}>
+                  <FaFileExcel style={{ color: 'white' }} />
                 </Button>
               </div>
             </Card.Body>
@@ -2134,13 +2413,16 @@ const imprimirEstadisticas = () => {
               <Card.Body>
                 <div style={{ display: 'flex', gap: '10px' }}>
                   <Button onClick={generarReporteProductosGanancias}>
-                    Generar reporte
+                    <FaFilePdf style={{ color: 'cyan' }} />
                   </Button>
                   <Button onClick={generarReporteProductosGananciasImg}>
-                    Generar reporte con imagen
+                    <FaImage style={{ color: 'purple' }} />
                   </Button>
                   <Button variant="secondary" onClick={enviarCorreo9}>
-                    Enviar por Correo
+                    <FaEnvelopeCircleCheck style={{ color: 'darkgray' }} />
+                  </Button>
+                  <Button variant="success" onClick={exportarProductosGananciasAExcel}>
+                    <FaFileExcel style={{ color: 'white' }} />
                   </Button>
                 </div>
               </Card.Body>
@@ -2158,13 +2440,16 @@ const imprimirEstadisticas = () => {
               <Card.Body>
                 <div style={{ display: 'flex', gap: '10px' }}>
                   <Button onClick={generarReporteVentasPorCategoria}>
-                    Generar reporte
+                    <FaFilePdf style={{ color: 'cyan' }} />
                   </Button>
                   <Button onClick={generarReporteVentasPorCategoriaImg}>
-                    Generar reporte con imagen
+                    <FaImage style={{ color: 'purple' }} />
                   </Button>
                   <Button variant="secondary" onClick={enviarCorreo10}>
-                    Enviar por Correo
+                    <FaEnvelopeCircleCheck style={{ color: 'darkgray' }} />
+                  </Button>
+                  <Button variant="success" onClick={exportarVentasPorCategoriaProductoAExcel}>
+                    <FaFileExcel style={{ color: 'white' }} />
                   </Button>
                 </div>
               </Card.Body>
@@ -2182,13 +2467,16 @@ const imprimirEstadisticas = () => {
               <Card.Body>
                 <div style={{ display: 'flex', gap: '10px' }}>
                   <Button onClick={generarReportePromedioVentasPorProducto}>
-                    Generar reporte
+                    <FaFilePdf style={{ color: 'cyan' }} />
                   </Button>
                   <Button onClick={generarReportePromedioVentasPorProductoImg}>
-                    Generar reporte con imagen
+                    <FaImage style={{ color: 'purple' }} />
                   </Button>
                   <Button variant="secondary" onClick={enviarCorreo11}>
-                    Enviar por Correo
+                    <FaEnvelopeCircleCheck style={{ color: 'darkgray' }} />
+                  </Button>
+                  <Button variant="success" onClick={exportarPromedioVentasPorProductoAExcel}>
+                    <FaFileExcel style={{ color: 'white' }} />
                   </Button>
                 </div>
               </Card.Body>
@@ -2206,13 +2494,16 @@ const imprimirEstadisticas = () => {
               <Card.Body>
               <div style={{ display: 'flex', gap: '10px' }}>
                   <Button onClick={generarReporteProductosMasVendidos}>
-                    Generar reporte
+                    <FaFilePdf style={{ color: 'cyan' }} />
                   </Button>
                   <Button onClick={generarReporteProductosMasVendidosImg}>
-                    Generar reporte con imagen
+                    <FaImage style={{ color: 'purple' }} />
                   </Button>
                   <Button variant="secondary" onClick={enviarCorreo12}>
-                    Enviar por Correo
+                    <FaEnvelopeCircleCheck style={{ color: 'darkgray' }} />
+                  </Button>
+                  <Button variant="success" onClick={exportarProductosMasVendidosAExcel}>
+                    <FaFileExcel style={{ color: 'white' }} />
                   </Button>
                 </div>
               </Card.Body>
@@ -2230,13 +2521,16 @@ const imprimirEstadisticas = () => {
               <Card.Body>
                 <div style={{ display: 'flex', gap: '10px' }}>
                   <Button onClick={generarReporteAlmacen}>
-                    Generar reporte
+                    <FaFilePdf style={{ color: 'cyan' }} />
                   </Button>
                   <Button onClick={generarReporteAlmacenImg}>
-                    Generar reporte con imagen
+                    <FaImage style={{ color: 'purple' }} />
                   </Button>
                   <Button variant="secondary" onClick={enviarCorreo13}>
-                    Enviar por Correo
+                    <FaEnvelopeCircleCheck style={{ color: 'darkgray' }} />
+                  </Button>
+                  <Button variant="success" onClick={exportarProductosAExcel}>
+                    <FaFileExcel style={{ color: 'white' }} />
                   </Button>
                 </div>
               </Card.Body>
@@ -2254,13 +2548,16 @@ const imprimirEstadisticas = () => {
               <Card.Body>
                 <div style={{ display: 'flex', gap: '10px' }}>
                   <Button onClick={generarReporteCategorias}>
-                    Generar reporte
+                    <FaFilePdf style={{ color: 'cyan' }} />
                   </Button>
                   <Button onClick={generarReporteCategoriasImg}>
-                    Generar reporte con imagen
+                    <FaImage style={{ color: 'purple' }} />
                   </Button>
                   <Button variant="secondary" onClick={enviarCorreo14}>
-                    Enviar por Correo
+                    <FaEnvelopeCircleCheck style={{ color: 'darkgray' }} />
+                  </Button>
+                  <Button variant="success" onClick={exportarProductosPorCategoriaAExcel}>
+                    <FaFileExcel style={{ color: 'white' }} />
                   </Button>
                 </div>
               </Card.Body>

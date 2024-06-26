@@ -1067,26 +1067,26 @@ router.post('/createProductos', (req, res) => {
 // Ruta para actualizar un registro existente por ID
 router.put('/updateProducto/:id_Producto', (req, res) => {
   const id_Producto = req.params.id_Producto;
-  const { id_Categoria, nombre, descripcion, precio, id_Marca,id_Promociones,cantidad,imagen } = req.body;
+  const { id_Categoria, nombre, descripcion, precio, id_Marca, id_Promociones, cantidad, imagen } = req.body;
 
-  if (!id_Categoria || !nombre || !descripcion || !precio || !id_Marca|| !id_Promociones || !cantidad ||!imagen) {
+  if (!id_Categoria || !nombre || !descripcion || !precio || !id_Marca || !id_Promociones || !cantidad || !imagen) {
     return res.status(400).json({ error: 'Todos los campos son obligatorios' });
   }
 
   const sql = `
     UPDATE Productos
-    SET id_Categoria=?, nombre=?, descripcion=?, precio=?, id_Marca=?,id_Promociones =?,cantidad =?,imagen=?
-    WHERE id_Producto= ?
+    SET id_Categoria = ?, nombre = ?, descripcion = ?, precio = ?, id_Marca = ?, id_Promociones = ?, cantidad = ?, imagen = ?
+    WHERE id_Producto = ?
   `;
 
-  const values = [id_Categoria, nombre, descripcion, precio, id_Marca,id_Promociones,imagen, cantidad, id_Producto,];
+  const values = [id_Categoria, nombre, descripcion, precio, id_Marca, id_Promociones, cantidad, imagen, id_Producto];
 
   db.query(sql, values, (err, result) => {
     if (err) {
       console.error('Error al actualizar el registro:', err);
-      res.status(500).json({ error: 'Error al actualizar el registro' });
+      return res.status(500).json({ error: 'Error al actualizar el registro', details: err.message });
     } else {
-      res.status(200).json({ message: 'Registro actualizado con éxito' });
+      res.status(200).json({ message: 'Producto actualizado con éxito' });
     }
   });
 });
